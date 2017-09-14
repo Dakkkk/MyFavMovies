@@ -1,5 +1,7 @@
 package com.mobileallin.movies.models;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 import com.mobileallin.movies.database.MoviesDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Table(database = MoviesDatabase.class)
 @Parcel
-public class Movie extends BaseModel {
+public class Movie extends BaseModel implements Parcelable {
 
     /*
         Used for building poster URLs
@@ -75,6 +77,31 @@ public class Movie extends BaseModel {
     public Movie() {
         // for DB
     }
+
+    protected Movie(android.os.Parcel in) {
+        id = in.readInt();
+        originalTitle = in.readString();
+        posterURL = in.readString();
+        plotSynopsis = in.readString();
+        userRating = in.readDouble();
+        releaseDate = in.readString();
+        favourite = in.readByte() != 0;
+        videos = in.createTypedArrayList(Video.CREATOR);
+        reviews = in.createTypedArrayList(Review.CREATOR);
+        favouriteMovies = in.createTypedArrayList(Movie.CREATOR);
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(android.os.Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getFullPosterURL() {
         return MOVIE_DB_POSTER_BASE_URL + DEFAULT_IMAGE_SIZE + posterURL;
@@ -136,6 +163,21 @@ public class Movie extends BaseModel {
 
     public void setFavourite(boolean favourite) {
         this.favourite = favourite;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel parcel, int i) {
+        parcel.writeInt(this.getId());
+        parcel.writeString(this.getOriginalTitle());
+        parcel.writeString(this.getFullPosterURL());
+        parcel.writeString(this.getReleaseDate());
+        parcel.writeString(this.getPlotSynopsis());
+        parcel.writeDouble(this.getUserRating());
     }
 
    /* public void setVideos(List<Video> videos) {

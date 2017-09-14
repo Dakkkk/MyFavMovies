@@ -23,14 +23,18 @@ import javax.inject.Inject;
 
 public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesViewHolder> {
 
-    private final Context mContext;
-    private final Picasso picasso;
+    private Context mContext;
+    private Picasso picasso;
     private List<Movie> moviesList = new ArrayList<>(0);
 
+
+    public MovieOnItemClick mOnMovieClick;
+
     @Inject
-    public AdapterMovies(HomeActivity context, Picasso picasso) {
+    public AdapterMovies(HomeActivity context, Picasso picasso, MovieOnItemClick onClick) {
         this.mContext = context;
         this.picasso = picasso;
+        this.mOnMovieClick = onClick;
     }
 
     /**
@@ -40,7 +44,6 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesView
         void onClick(Movie movie);
     }
 
-    private MovieOnItemClick mOnMovieClick;
 
     public AdapterMovies(Context context1, Picasso picasso, @NonNull Context context, MovieOnItemClick onClickHandler) {
         this.mContext = context1;

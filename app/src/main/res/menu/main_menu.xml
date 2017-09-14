@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto"
+    android:icon="@android:drawable/ic_menu_more"
+    myapp:showAsAction="ifRoom">
+    <item
+        android:id="@+id/sort_popular"
+        android:title="@string/sort_by_popular" />
+
+    <item
+        android:id="@+id/sort_rated"
+        android:title="@string/sort_by_rated" />
+
+    <item
+        android:id="@+id/sort_favourite"
+        android:title="@string/sort_by_favourite" />
+</menu>

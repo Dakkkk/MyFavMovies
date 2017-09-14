@@ -1,9 +1,11 @@
 package com.mobileallin.movies.screens;
 
+import com.mobileallin.movies.screens.home.MovieClickModule;
+
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = MovieClickModule.class)
 public class HomeActivityModule {
 
     private final HomeActivity homeActivity;
