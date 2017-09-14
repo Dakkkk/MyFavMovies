@@ -2,8 +2,9 @@ package com.mobileallin.movies.screens;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.mobileallin.movies.MoviesApplication;
@@ -23,8 +24,8 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-  @BindView(R.id.repo_home_list)
-  ListView listView;
+  @BindView(R.id.all_movies_grid)
+  RecyclerView listView;
 
   Call<APIResults<Movie>> reposCall;
 
@@ -37,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_home);
+    setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
     HomeActivityComponent component = DaggerHomeActivityComponent.builder()
@@ -47,7 +48,12 @@ public class HomeActivity extends AppCompatActivity {
 
     component.injectHomeActivity(this);
 
-    listView.setAdapter(adapterMovies);
+   // listView.setAdapter(adapterMovies);
+
+      RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
+      listView.setLayoutManager(manager);
+      listView.setAdapter(adapterMovies);
+
 
     reposCall = movieService.getMostPopular();
     reposCall.enqueue(new Callback<APIResults<Movie>>() {

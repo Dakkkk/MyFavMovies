@@ -1,4 +1,15 @@
 <resources>
   <string name="app_name">MyFavMovies</string>
   <string name="last_pushed">Last Pushed %s</string>
+
+  <string name="error_string">Oops.. It seems we have a temporary problem</string>
+  <string name="movie_title">Movie title</string>
+  <string name="no_connention">No interner connection!</string>
+  <string name="no_movie_error">Sorry, No movie found</string>
+  <string name="sort_by">Sort by</string>
+  <string name="sort_by_popular">Show most popular</string>
+  <string name="sort_by_rated">Show top rated</string>
+  <string name="release_date">Release date:</string>
+  <string name="rating">Rating:</string>
+  <string name="sort_by_favourite">Sort by favourite</string>
 </resources>
