@@ -35,7 +35,8 @@ public final class Review implements Parcelable {
     @Expose
     private String url;
 
-    public Review() {}
+    public Review() {
+    }
 
     public String getId() {
         return id;
@@ -74,7 +75,9 @@ public final class Review implements Parcelable {
     }
 
     @Override
-    public int describeContents() { return 0; }
+    public int describeContents() {
+        return 0;
+    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -92,9 +95,13 @@ public final class Review implements Parcelable {
     }
 
     public static final Creator<Review> CREATOR = new Creator<Review>() {
-        public Review createFromParcel(Parcel source) {return new Review(source);}
+        public Review createFromParcel(Parcel source) {
+            return new Review(source);
+        }
 
-        public Review[] newArray(int size) {return new Review[size];}
+        public Review[] newArray(int size) {
+            return new Review[size];
+        }
     };
 
     public static final class Response {

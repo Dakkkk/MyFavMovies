@@ -45,7 +45,8 @@ public final class Video implements Parcelable {
     @Expose
     private String type;
 
-    public Video() {}
+    public Video() {
+    }
 
     public String getId() {
         return id;
@@ -122,7 +123,9 @@ public final class Video implements Parcelable {
     // --------------------------------------------------------------------------------------
 
     @Override
-    public int describeContents() { return 0; }
+    public int describeContents() {
+        return 0;
+    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -146,9 +149,13 @@ public final class Video implements Parcelable {
     }
 
     public static final Creator<Video> CREATOR = new Creator<Video>() {
-        public Video createFromParcel(Parcel source) {return new Video(source);}
+        public Video createFromParcel(Parcel source) {
+            return new Video(source);
+        }
 
-        public Video[] newArray(int size) {return new Video[size];}
+        public Video[] newArray(int size) {
+            return new Video[size];
+        }
     };
 
     public static final class Response {

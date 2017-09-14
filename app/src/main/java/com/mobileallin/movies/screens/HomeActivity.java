@@ -24,58 +24,58 @@ import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
 
-  @BindView(R.id.all_movies_grid)
-  RecyclerView listView;
+    @BindView(R.id.all_movies_grid)
+    RecyclerView listView;
 
-  Call<APIResults<Movie>> reposCall;
+    Call<APIResults<Movie>> reposCall;
 
-  @Inject
-  MovieService movieService;
+    @Inject
+    MovieService movieService;
 
-  @Inject
-  AdapterMovies adapterMovies;
+    @Inject
+    AdapterMovies adapterMovies;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    ButterKnife.bind(this);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-    HomeActivityComponent component = DaggerHomeActivityComponent.builder()
-            .homeActivityModule(new HomeActivityModule(this))
-            .moviesApplicationComponent(MoviesApplication.get(this).component())
-            .build();
+        HomeActivityComponent component = DaggerHomeActivityComponent.builder()
+                .homeActivityModule(new HomeActivityModule(this))
+                .moviesApplicationComponent(MoviesApplication.get(this).component())
+                .build();
 
-    component.injectHomeActivity(this);
+        component.injectHomeActivity(this);
 
-   // listView.setAdapter(adapterMovies);
+        // listView.setAdapter(adapterMovies);
 
-      RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
-      listView.setLayoutManager(manager);
-      listView.setAdapter(adapterMovies);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
+        listView.setLayoutManager(manager);
+        listView.setAdapter(adapterMovies);
 
 
-    reposCall = movieService.getMostPopular();
-    reposCall.enqueue(new Callback<APIResults<Movie>>() {
-        @Override
-        public void onResponse(Call<APIResults<Movie>>call, Response<APIResults<Movie>> response) {
-            Log.i("API response", response.body().results.get(0).toString());
-          adapterMovies.swapData(response.body().results);
-        }
+        reposCall = movieService.getMostPopular();
+        reposCall.enqueue(new Callback<APIResults<Movie>>() {
+            @Override
+            public void onResponse(Call<APIResults<Movie>> call, Response<APIResults<Movie>> response) {
+                Log.i("API response", response.body().results.get(0).toString());
+                adapterMovies.swapData(response.body().results);
+            }
 
-        @Override
-        public void onFailure(Call<APIResults<Movie>> call, Throwable t) {
-            Log.e("API failure", t.getMessage());
-            Toast.makeText(HomeActivity.this, "Error getting movies " + t.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-      });
-  }
-
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    if(reposCall != null) {
-      reposCall.cancel();
+            @Override
+            public void onFailure(Call<APIResults<Movie>> call, Throwable t) {
+                Log.e("API failure", t.getMessage());
+                Toast.makeText(HomeActivity.this, "Error getting movies " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-  }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (reposCall != null) {
+            reposCall.cancel();
+        }
+    }
 }

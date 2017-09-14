@@ -21,149 +21,93 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesViewHolder>{
-
-//    private final List<Movie> repoList = new ArrayList<>(0);
-//  private final Context context;
-//  private final Picasso picasso;
-//
-//  @Inject
-//  public AdapterMovies(HomeActivity context, Picasso picasso) {
-//    this.context = context;
-//    this.picasso = picasso;
-//  }
-//
-//  @Override
-//  public int getCount() {
-//      if (repoList == null) {
-//          return 0;
-//      }
-//    return repoList.size();
-//  }
-//
-//  @Override
-//  public Movie getItem(int position) {
-//    return repoList.get(position);
-//  }
-//
-//  @Override
-//  public boolean hasStableIds() {
-//    return true;
-//  }
-//
-//  @Override
-//  public long getItemId(int position) {
-//    return repoList.get(position).id;
-//  }
-//
-//  @Override
-//  public View getView(int position, View convertView, ViewGroup parent) {
-//    MovieListItem movieListItem;
-//    if(convertView == null) {
-//      movieListItem = new MovieListItem(context, picasso);
-//    } else {
-//      movieListItem = MovieListItem.class.cast(convertView);
-//    }
-//
-//    movieListItem.setRepo(repoList.get(position));
-//
-//    return movieListItem;
-//  }
-//
-//  public void swapData(Collection<Movie> githubRepos) {
-//      if (githubRepos == null) return;
-//    repoList.clear();
-//    if(githubRepos != null) {
-//      repoList.addAll(githubRepos);
-//    }
-//    notifyDataSetChanged();
-//  }
+public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesViewHolder> {
 
     private final Context mContext;
-   private final Picasso picasso;
-   private List<Movie> moviesList = new ArrayList<>(0);
+    private final Picasso picasso;
+    private List<Movie> moviesList = new ArrayList<>(0);
 
     @Inject
     public AdapterMovies(HomeActivity context, Picasso picasso) {
-    this.mContext = context;
-    this.picasso = picasso;
-  }
-
-  /**
-   * Handles click on movie in grid view
-   */
-  public interface MovieOnItemClick {
-    void onClick(Movie movie);
-  }
-
-  private MovieOnItemClick mOnMovieClick;
-
-  public AdapterMovies(Context context1, Picasso picasso, @NonNull Context context, MovieOnItemClick onClickHandler) {
-      this.mContext = context1;
-      this.picasso = picasso;
-    this.mOnMovieClick = onClickHandler;
-  }
-
-  public void setMovies(List<Movie> movies) {
-    this.moviesList = movies;
-    notifyDataSetChanged();
-  }
-
-
-  @Override
-  public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(mContext)
-            .inflate(R.layout.movies_item, parent, false);
-    return new MoviesViewHolder(view);
-  }
-
-  @Override
-  public void onBindViewHolder(MoviesViewHolder holder, int position) {
-    holder.setMovie(moviesList.get(position));
-  }
-
-  @Override
-  public int getItemCount() {
-    return moviesList == null ? 0 : moviesList.size();
-  }
-
-  public void swapData(Collection<Movie> githubRepos) {
-      if (githubRepos == null) return;
-      moviesList.clear();
-    if(githubRepos != null) {
-        moviesList.addAll(githubRepos);
-    }
-    notifyDataSetChanged();
-  }
-
-  class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-    private TextView mMovieTitleTextView;
-    private ImageView mMoviePosterImageView;
-    private ImageView mFavoriteButtonImageView;
-
-
-    MoviesViewHolder(View itemView) {
-      super(itemView);
-      mMovieTitleTextView = itemView.findViewById(R.id.movie_title);
-      mMoviePosterImageView = itemView.findViewById(R.id.movie_picture);
-
-      itemView.setOnClickListener(this);
+        this.mContext = context;
+        this.picasso = picasso;
     }
 
-    void setMovie(Movie movie) {
-      mMovieTitleTextView.setText(movie.getOriginalTitle());
-      Picasso.with(mContext).load(movie.getFullPosterURL()).into(mMoviePosterImageView);
+    /**
+     * Handles click on movie in grid view
+     */
+    public interface MovieOnItemClick {
+        void onClick(Movie movie);
+    }
 
+    private MovieOnItemClick mOnMovieClick;
+
+    public AdapterMovies(Context context1, Picasso picasso, @NonNull Context context, MovieOnItemClick onClickHandler) {
+        this.mContext = context1;
+        this.picasso = picasso;
+        this.mOnMovieClick = onClickHandler;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.moviesList = movies;
+        notifyDataSetChanged();
+    }
+
+
+    @Override
+    public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext)
+                .inflate(R.layout.movies_item, parent, false);
+        return new MoviesViewHolder(view);
     }
 
     @Override
-    public void onClick(View v) {
-      if (mOnMovieClick != null) {
-        mOnMovieClick.onClick(moviesList.get(getAdapterPosition()));
-        Log.d("cl1Movie", String.valueOf(moviesList.get(getAdapterPosition()).isFavourite()));
-      }
+    public void onBindViewHolder(MoviesViewHolder holder, int position) {
+        holder.setMovie(moviesList.get(position));
     }
-  }
+
+    @Override
+    public int getItemCount() {
+        return moviesList == null ? 0 : moviesList.size();
+    }
+
+    public void swapData(Collection<Movie> githubRepos) {
+        if (githubRepos == null) return;
+        moviesList.clear();
+        if (githubRepos != null) {
+            moviesList.addAll(githubRepos);
+        }
+        notifyDataSetChanged();
+    }
+
+    class MoviesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private TextView mMovieTitleTextView;
+        private ImageView mMoviePosterImageView;
+        private ImageView mFavoriteButtonImageView;
+
+
+        MoviesViewHolder(View itemView) {
+            super(itemView);
+            mMovieTitleTextView = itemView.findViewById(R.id.movie_title);
+            mMoviePosterImageView = itemView.findViewById(R.id.movie_picture);
+
+            itemView.setOnClickListener(this);
+        }
+
+        void setMovie(Movie movie) {
+            mMovieTitleTextView.setText(movie.getOriginalTitle());
+            Picasso.with(mContext).load(movie.getFullPosterURL()).into(mMoviePosterImageView);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mOnMovieClick != null) {
+                mOnMovieClick.onClick(moviesList.get(getAdapterPosition()));
+                Log.d("cl1Movie", String.valueOf(moviesList.get(getAdapterPosition()).isFavourite()));
+            }
+        }
+    }
 
 }
