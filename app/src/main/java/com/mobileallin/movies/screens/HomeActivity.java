@@ -22,6 +22,8 @@ import com.mobileallin.movies.utils.SortingCriteria;
 
 import org.parceler.Parcels;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -70,7 +72,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         reposCall.enqueue(new Callback<APIResults<Movie>>() {
             @Override
             public void onResponse(Call<APIResults<Movie>> call, Response<APIResults<Movie>> response) {
-                Log.i("API response", response.body().results.get(0).toString());
+                Log.i("API response", response.body().results.get(2).getFullPosterURL());
                 adapterMovies.swapData(response.body().results);
             }
 
@@ -114,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
             return;
         }
 
-     /*   if (criteria == SortingCriteria.FAVORITE) {
+      /*  if (criteria == SortingCriteria.FAVORITE) {
             currentCriteria = criteria;
             SQLite.select()
                     .from(Movie.class)
@@ -137,6 +139,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                     .execute();
             return;
         }*/
+    }
+
+    private void setMovies(List<Movie> movies) {
+        if (movies == null) return;
+        Log.d("setMovies, fav", movies.toString());
+        movies.stream().filter(Movie::exists).forEach(Movie::load);
+        adapterMovies.setMovies(movies);
     }
 
 

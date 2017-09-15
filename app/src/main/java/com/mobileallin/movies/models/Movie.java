@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.mobileallin.movies.database.MoviesDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -175,35 +176,40 @@ public class Movie extends BaseModel implements Parcelable {
         parcel.writeInt(this.getId());
         parcel.writeString(this.getOriginalTitle());
         parcel.writeString(this.getFullPosterURL());
-        parcel.writeString(this.getReleaseDate());
         parcel.writeString(this.getPlotSynopsis());
         parcel.writeDouble(this.getUserRating());
+        parcel.writeString(this.getReleaseDate());
+        parcel.writeString(String.valueOf(this.isFavourite()));
+        parcel.writeList(this.getVideos());
+        parcel.writeList(this.getReviews());
     }
 
-   /* public void setVideos(List<Video> videos) {
-        this.videos = videos;
-        videos.forEach(v -> v.setMovie(this));
+    public void setVideos(List<Video> videos) {
+        /*this.videos = videos;
+        videos.forEach(v -> v.setMovie(this));*/
     }
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "reviews")
     public List<Review> getReviews() {
-        if (reviews == null) {
-            reviews = SQLite.select()
-                    .from(Review.class)
-                    .where(Review_Table.movie_id.is(id))
-                    .queryList();
-        }
-        return reviews;
+//        if (reviews == null) {
+//            reviews = SQLite.select()
+//                    .from(Review.class)
+//                    .where(Review_Table.movie_id.is(id))
+//                    .queryList();
+//        }
+//        return reviews;
+        return null;
     }
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "videos")
     public List<Video> getVideos() {
-        if (videos == null) {
-            videos = SQLite.select()
-                    .from(Video.class)
-                    .where(Video_Table.movie_id.is(id))
-                    .queryList();
-        }
-        return videos;
-    }*/
+//        if (videos == null) {
+//            videos = SQLite.select()
+//                    .from(Video.class)
+//                    .where(Video_Table.movie_id.is(id))
+//                    .queryList();
+//        }
+//        return videos;
+        return null;
+    }
 }

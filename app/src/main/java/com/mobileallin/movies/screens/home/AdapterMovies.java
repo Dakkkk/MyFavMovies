@@ -100,6 +100,7 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesView
 
         void setMovie(Movie movie) {
             mMovieTitleTextView.setText(movie.getOriginalTitle());
+            Log.i("img", movie.getFullPosterURL());
             Picasso.with(mContext).load(movie.getFullPosterURL()).into(mMoviePosterImageView);
 
         }

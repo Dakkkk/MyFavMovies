@@ -24,8 +24,6 @@ public class MovieActivity extends AppCompatActivity {
     public static final String MOVIE_KEY = "MovieActivity.Movie.key";
     Movie movie;
 
-    //testing
-    Movie movie1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +35,6 @@ public class MovieActivity extends AppCompatActivity {
             if (intent != null) {
                 movie = Parcels.unwrap(intent.getParcelableExtra(MOVIE_KEY));
                 Log.d("Fmovie", String.valueOf(movie.isFavourite()));
-                movie1 = Parcels.unwrap(savedInstanceState.getParcelable(MOVIE_KEY));
-                Log.d("Fmovie1", String.valueOf(movie1.isFavourite()));
 
             }
         } catch (Exception ignore) {
@@ -47,12 +43,22 @@ public class MovieActivity extends AppCompatActivity {
             Toast.makeText(this, getResources().getString(R.string.no_movie_error), Toast.LENGTH_LONG).show();
             return;
         }
+        ImageView moviePicture = findViewById(R.id.movie_poster_detail);
+        Picasso.with(getApplicationContext()).load(movie.getPosterURL()).into(moviePicture);
+
         TextView titleText = findViewById(R.id.movie_title_detail);
-        Log.d("DetailMovie", String.valueOf(movie.getOriginalTitle()));
         titleText.setText(movie.getOriginalTitle());
 
-        ImageView moviePicture = findViewById(R.id.movie_poster_detail);
-        Picasso.with(this).load(movie.getFullPosterURL()).into(moviePicture);
+        TextView synopsisText = findViewById(R.id.movie_synopsis);
+        Log.d("Synopsis", String.valueOf(movie.getPlotSynopsis()));
+        synopsisText.setText(movie.getPlotSynopsis());
+
+        TextView releaseText = findViewById(R.id.release_data);
+        Log.d("Rdate", String.valueOf(movie.getReleaseDate()));
+        releaseText.setText(movie.getReleaseDate());
+
+        TextView ratingText = findViewById(R.id.movie_rating);
+        ratingText.setText(String.valueOf(movie.getUserRating()));
 
         MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
 
