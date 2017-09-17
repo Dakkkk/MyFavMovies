@@ -14,11 +14,13 @@ import com.mobileallin.movies.MoviesApplication;
 import com.mobileallin.movies.R;
 import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
+import com.mobileallin.movies.models.Movie_Table;
 import com.mobileallin.movies.network.MovieService;
 import com.mobileallin.movies.screens.detail.MovieActivity;
 import com.mobileallin.movies.screens.home.AdapterMovies;
 import com.mobileallin.movies.screens.home.MovieClickModule;
 import com.mobileallin.movies.utils.SortingCriteria;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import org.parceler.Parcels;
 
@@ -31,6 +33,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class HomeActivity extends AppCompatActivity implements AdapterMovies.MovieOnItemClick{
 
@@ -50,7 +53,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
 
         HomeActivityComponent component = DaggerHomeActivityComponent.builder()
@@ -60,6 +65,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                 .build();
 
         component.injectHomeActivity(this);
+
+/*
+        Initializer.init(this.getApplication());
+*/
+
 
         // listView.setAdapter(adapterMovies);
 
@@ -116,7 +126,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
             return;
         }
 
-      /*  if (criteria == SortingCriteria.FAVORITE) {
+        if (criteria == SortingCriteria.FAVORITE) {
             currentCriteria = criteria;
             SQLite.select()
                     .from(Movie.class)
@@ -138,7 +148,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                     .queryListResultCallback((__, movies) -> setMovies(movies))
                     .execute();
             return;
-        }*/
+        }
     }
 
     private void setMovies(List<Movie> movies) {

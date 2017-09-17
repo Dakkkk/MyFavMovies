@@ -16,113 +16,115 @@
 
 package com.mobileallin.movies.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mobileallin.movies.database.MoviesDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import java.util.List;
+@Table(database = MoviesDatabase.class)
+@org.parceler.Parcel
+public class Video extends BaseModel {
 
-public final class Video implements Parcelable {
+    /*
+        JSON KEYS
+     */
+    private static final String ID_KEY = "id";
+    private static final String KEY_KEY = "key";
+    private static final String NAME_KEY = "name";
+    private static final String SITE_KEY = "site";
+    private static final String SIZE_KEY = "size";
+    private static final String TYPE_KEY = "type";
 
-    public static final String SITE_YOUTUBE = "YouTube";
-    public static final String TYPE_TRAILER = "Trailer";
-
-    @Expose
+    @PrimaryKey
+    @Column
+    @SerializedName(ID_KEY)
     private String id;
-    @SerializedName("iso_639_1")
-    @Expose
-    private String iso;
-    @Expose
+
+    @Column
+    @SerializedName(KEY_KEY)
     private String key;
-    @Expose
+
+    @Column
+    @SerializedName(NAME_KEY)
     private String name;
-    @Expose
+
+    @Column
+    @SerializedName(SITE_KEY)
     private String site;
-    @Expose
+
+    @Column
+    @SerializedName(SIZE_KEY)
     private int size;
-    @Expose
+
+    @Column
+    @SerializedName(TYPE_KEY)
     private String type;
 
-    public Video() {
-    }
+    @ForeignKey(stubbedRelationship = true)
+    private Movie movie;
 
     public String getId() {
         return id;
     }
 
-    public Video setId(String id) {
+    public void setId(String id) {
         this.id = id;
-        return this;
-    }
-
-    public String getIso() {
-        return iso;
-    }
-
-    public Video setIso(String iso) {
-        this.iso = iso;
-        return this;
     }
 
     public String getKey() {
         return key;
     }
 
-    public Video setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
-        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public Video setName(String name) {
+    public void setName(String name) {
         this.name = name;
-        return this;
     }
 
     public String getSite() {
         return site;
     }
 
-    public Video setSite(String site) {
+    public void setSite(String site) {
         this.site = site;
-        return this;
     }
 
     public int getSize() {
         return size;
     }
 
-    public Video setSize(int size) {
+    public void setSize(int size) {
         this.size = size;
-        return this;
     }
 
     public String getType() {
         return type;
     }
 
-    public Video setType(String type) {
+    public void setType(String type) {
         this.type = type;
-        return this;
     }
 
-    @Override
-    public String toString() {
-        return "Video{" +
-                "key='" + key + '\'' +
-                ", name='" + name + '\'' +
-                ", site='" + site + '\'' +
-                ", type='" + type + '\'' +
-                '}';
+    public Movie getMovie() {
+        return movie;
     }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
+}
     // --------------------------------------------------------------------------------------
 
-    @Override
+ /*   @Override
     public int describeContents() {
         return 0;
     }
@@ -168,4 +170,4 @@ public final class Video implements Parcelable {
         public List<Video> videos;
 
     }
-}
+}*/

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.mobileallin.movies.R;
@@ -56,6 +57,12 @@ public class MovieActivity extends AppCompatActivity {
         TextView releaseText = findViewById(R.id.release_data);
         Log.d("Rdate", String.valueOf(movie.getReleaseDate()));
         releaseText.setText(movie.getReleaseDate());
+
+        VideoView videoView = findViewById(R.id.detail_video);
+        if(movie.getVideos() != null) {
+            Log.i("videos", movie.getVideos().toString());
+            videoView.setVideoPath(movie.getVideos().get(1).getSite());
+        }
 
         TextView ratingText = findViewById(R.id.movie_rating);
         ratingText.setText(String.valueOf(movie.getUserRating()));

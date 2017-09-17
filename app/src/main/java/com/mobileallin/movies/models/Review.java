@@ -16,95 +16,91 @@
 
 package com.mobileallin.movies.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mobileallin.movies.database.MoviesDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import java.util.List;
 
-public final class Review implements Parcelable {
+@Table(database = MoviesDatabase.class)
+@org.parceler.Parcel
+public class Review extends BaseModel {
 
-    @Expose
+    /*
+        JSON KEYS
+     */
+    private static final String ID_KEY = "id";
+    private static final String AUTHOR_KEY = "author";
+    private static final String CONTENT_KEY = "content";
+    private static final String URL_KEY = "url";
+
+    @PrimaryKey
+    @Column
+    @SerializedName(ID_KEY)
     private String id;
-    @Expose
+
+    @Column
+    @SerializedName(AUTHOR_KEY)
     private String author;
-    @Expose
+
+    @Column
+    @SerializedName(CONTENT_KEY)
     private String content;
-    @Expose
+
+    @Column
+    @SerializedName(URL_KEY)
     private String url;
 
-    public Review() {
-    }
+    @ForeignKey(stubbedRelationship = true)
+    private Movie movie;
 
     public String getId() {
         return id;
     }
 
-    public Review setId(String id) {
+    public void setId(String id) {
         this.id = id;
-        return this;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public Review setAuthor(String author) {
+    public void setAuthor(String author) {
         this.author = author;
-        return this;
     }
 
     public String getContent() {
         return content;
     }
 
-    public Review setContent(String content) {
+    public void setContent(String content) {
         this.content = content;
-        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public Review setUrl(String url) {
+    public void setUrl(String url) {
         this.url = url;
-        return this;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public Movie getMovie() {
+        return movie;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.author);
-        dest.writeString(this.content);
-        dest.writeString(this.url);
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
+}
 
-    protected Review(Parcel in) {
-        this.id = in.readString();
-        this.author = in.readString();
-        this.content = in.readString();
-        this.url = in.readString();
-    }
 
-    public static final Creator<Review> CREATOR = new Creator<Review>() {
-        public Review createFromParcel(Parcel source) {
-            return new Review(source);
-        }
-
-        public Review[] newArray(int size) {
-            return new Review[size];
-        }
-    };
-
-    public static final class Response {
+/*
+public static final class Response {
 
         @Expose
         public long id;
@@ -125,4 +121,4 @@ public final class Review implements Parcelable {
         public int totalResults;
 
     }
-}
+}*/

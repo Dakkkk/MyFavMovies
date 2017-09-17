@@ -87,8 +87,8 @@ public class Movie extends BaseModel implements Parcelable {
         userRating = in.readDouble();
         releaseDate = in.readString();
         favourite = in.readByte() != 0;
-        videos = in.createTypedArrayList(Video.CREATOR);
-        reviews = in.createTypedArrayList(Review.CREATOR);
+//        videos = in.createTypedArrayList(Video.CREATOR);
+//        reviews = in.createTypedArrayList(Review.CREATOR);
         favouriteMovies = in.createTypedArrayList(Movie.CREATOR);
     }
 
@@ -185,31 +185,31 @@ public class Movie extends BaseModel implements Parcelable {
     }
 
     public void setVideos(List<Video> videos) {
-        /*this.videos = videos;
-        videos.forEach(v -> v.setMovie(this));*/
+        this.videos = videos;
+        videos.forEach(v -> v.setMovie(this));
     }
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "reviews")
     public List<Review> getReviews() {
-//        if (reviews == null) {
-//            reviews = SQLite.select()
-//                    .from(Review.class)
-//                    .where(Review_Table.movie_id.is(id))
-//                    .queryList();
-//        }
-//        return reviews;
+    /*    if (reviews == null) {
+            reviews = SQLite.select()
+                    .from(Review.class)
+                    .where(Review_Table.movie_id.is(id))
+                    .queryList();
+        }
+        return reviews;*/
         return null;
     }
 
     @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "videos")
     public List<Video> getVideos() {
-//        if (videos == null) {
-//            videos = SQLite.select()
-//                    .from(Video.class)
-//                    .where(Video_Table.movie_id.is(id))
-//                    .queryList();
-//        }
-//        return videos;
+       /* if (videos == null) {
+            videos = SQLite.select()
+                    .from(Video.class)
+                    .where(Video_Table.movie_id.is(id))
+                    .queryList();
+        }
+        return videos;*/
         return null;
     }
 }
