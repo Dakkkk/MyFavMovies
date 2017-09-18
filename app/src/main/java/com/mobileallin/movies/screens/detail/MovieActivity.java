@@ -59,7 +59,7 @@ public class MovieActivity extends AppCompatActivity {
         releaseText.setText(movie.getReleaseDate());
 
         VideoView videoView = findViewById(R.id.detail_video);
-        if(movie.getVideos() != null) {
+        if (movie.getVideos() != null) {
             Log.i("videos", movie.getVideos().toString());
             videoView.setVideoPath(movie.getVideos().get(1).getSite());
         }
@@ -69,22 +69,26 @@ public class MovieActivity extends AppCompatActivity {
 
         MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
 
-        if(movie.isFavourite()) favoriteButton.setFavorite(true);
+        Log.i("isFavourite", String.valueOf(movie.isFavourite()));
+
+        if (movie.isFavourite()) {
+            favoriteButton.setFavorite(true);
+        }
 
         favoriteButton.setOnFavoriteChangeListener(
                 (buttonView, favorite) -> {
-                        if (movie == null) return;
+                    if (movie == null) return;
                     // save movie
                     try {
                         this.movie.setFavourite(!movie.isFavourite());
-                    if (this.movie.exists()) {
+                        if (this.movie.exists()) {
                             Log.d("fav", "update");
                             this.movie.update();
                         } else {
                             Log.d("fav", "save");
                             this.movie.save();
                         }
-                    } catch (Exception ignore){
+                    } catch (Exception ignore) {
                     }
                 });
     }

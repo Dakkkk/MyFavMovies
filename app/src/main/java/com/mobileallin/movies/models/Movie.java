@@ -86,7 +86,7 @@ public class Movie extends BaseModel implements Parcelable {
         plotSynopsis = in.readString();
         userRating = in.readDouble();
         releaseDate = in.readString();
-        favourite = in.readByte() != 0;
+        favourite = (Boolean) in.readValue( null );
 //        videos = in.createTypedArrayList(Video.CREATOR);
 //        reviews = in.createTypedArrayList(Review.CREATOR);
         favouriteMovies = in.createTypedArrayList(Movie.CREATOR);
@@ -179,7 +179,7 @@ public class Movie extends BaseModel implements Parcelable {
         parcel.writeString(this.getPlotSynopsis());
         parcel.writeDouble(this.getUserRating());
         parcel.writeString(this.getReleaseDate());
-        parcel.writeString(String.valueOf(this.isFavourite()));
+        parcel.writeValue(this.isFavourite());
         parcel.writeList(this.getVideos());
         parcel.writeList(this.getReviews());
     }
