@@ -35,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeActivity extends AppCompatActivity implements AdapterMovies.MovieOnItemClick{
+public class HomeActivity extends AppCompatActivity implements AdapterMovies.MovieOnItemClick {
 
     @BindView(R.id.all_movies_grid)
     RecyclerView listView;
@@ -94,6 +94,29 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         });
     }
 
+    public void getAdequateMovies(SortingCriteria sortingCriteria) {
+        reposCall = movieService.getMostPopular();
+        if (sortingCriteria == SortingCriteria.FAVORITE) {
+            reposCall = movieService.getMostPopular();
+        } else if (sortingCriteria == SortingCriteria.TOP_RATED) {
+            reposCall = movieService.getTopRated();
+        }
+        reposCall.enqueue(new Callback<APIResults<Movie>>() {
+            @Override
+            public void onResponse(Call<APIResults<Movie>> call, Response<APIResults<Movie>> response) {
+                Log.i("API response", response.body().results.get(2).getFullPosterURL());
+                adapterMovies.swapData(response.body().results);
+            }
+
+            @Override
+            public void onFailure(Call<APIResults<Movie>> call, Throwable t) {
+                Log.e("API failure", t.getMessage());
+                Toast.makeText(HomeActivity.this, "Error getting movies " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -121,6 +144,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     /**
      * Sort movies by given criteria
      */
+
+
+    /**
+     * Sort movies by given criteria
+     */
     private void showSortedData(SortingCriteria criteria) {
         if (currentCriteria == criteria) {
             return;
@@ -136,28 +164,29 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                     .execute();
             return;
         }
-
+/*
+        if (!NetworkUtility.isConnected(this)) {
+            showErrorMessage(getResources().getString(R.string.no_connention));
+            return;
+        }*/
 
         currentCriteria = criteria;
 
-        if (currentCriteria == SortingCriteria.MOST_POPULAR) {
-            SQLite.select()
-                    .from(Movie.class)
-                    .where(Movie_Table.favourite.is(true))
-                    .async()
-                    .queryListResultCallback((__, movies) -> setMovies(movies))
-                    .execute();
-            return;
-        }
+        getAdequateMovies(currentCriteria);
+
     }
 
+
+    //ToDo stream requres java 8!
     private void setMovies(List<Movie> movies) {
         if (movies == null) return;
         Log.d("setMovies, fav", movies.toString());
-        movies.stream().filter(Movie::exists).forEach(Movie::load);
+        for (int i = 0; i < movies.size(); i++) {
+            if (movies.get(i).exists()) movies.get(i).load();
+        }
+        //movies.stream().filter(Movie::exists).forEach(Movie::load);
         adapterMovies.setMovies(movies);
     }
-
 
 
     @Override
