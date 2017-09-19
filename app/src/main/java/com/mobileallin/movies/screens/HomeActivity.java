@@ -66,37 +66,17 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
         component.injectHomeActivity(this);
 
-/*
-        Initializer.init(this.getApplication());
-*/
-
-
-        // listView.setAdapter(adapterMovies);
-
         RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
         listView.setLayoutManager(manager);
         listView.setAdapter(adapterMovies);
 
+        getSortedMovies(SortingCriteria.MOST_POPULAR);
 
-        reposCall = movieService.getMostPopular();
-        reposCall.enqueue(new Callback<APIResults<Movie>>() {
-            @Override
-            public void onResponse(Call<APIResults<Movie>> call, Response<APIResults<Movie>> response) {
-                Log.i("API response", response.body().results.get(2).getFullPosterURL());
-                adapterMovies.swapData(response.body().results);
-            }
-
-            @Override
-            public void onFailure(Call<APIResults<Movie>> call, Throwable t) {
-                Log.e("API failure", t.getMessage());
-                Toast.makeText(HomeActivity.this, "Error getting movies " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
-    public void getAdequateMovies(SortingCriteria sortingCriteria) {
+    public void getSortedMovies(SortingCriteria sortingCriteria) {
         reposCall = movieService.getMostPopular();
-        if (sortingCriteria == SortingCriteria.FAVORITE) {
+        if (sortingCriteria == SortingCriteria.MOST_POPULAR) {
             reposCall = movieService.getMostPopular();
         } else if (sortingCriteria == SortingCriteria.TOP_RATED) {
             reposCall = movieService.getTopRated();
@@ -172,15 +152,18 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
         currentCriteria = criteria;
 
-        getAdequateMovies(currentCriteria);
+        getSortedMovies(currentCriteria);
 
     }
 
 
     //ToDo stream requres java 8!
     private void setMovies(List<Movie> movies) {
-        if (movies == null) return;
-        Log.d("setMovies, fav", movies.toString());
+        if (movies == null || movies.size() == 0) {
+            Toast.makeText(this, "No favourite movies!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.d("setMovies, fav", movies.get(0).toString());
         for (int i = 0; i < movies.size(); i++) {
             if (movies.get(i).exists()) movies.get(i).load();
         }

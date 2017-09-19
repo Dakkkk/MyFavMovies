@@ -1,19 +1,3 @@
-/*
- * Copyright 2015.  Emin Yahyayev
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.mobileallin.movies.models;
 
 import com.google.gson.annotations.SerializedName;
@@ -26,7 +10,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 @Table(database = MoviesDatabase.class)
 @org.parceler.Parcel
-public class Video extends BaseModel {
+public class Video extends BaseModel{
 
     /*
         JSON KEYS
@@ -121,7 +105,6 @@ public class Video extends BaseModel {
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
-}
     // --------------------------------------------------------------------------------------
 
  /*   @Override
@@ -130,19 +113,17 @@ public class Video extends BaseModel {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.iso);
-        dest.writeString(this.key);
-        dest.writeString(this.name);
-        dest.writeString(this.site);
-        dest.writeInt(this.size);
-        dest.writeString(this.type);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(this.id);
+        parcel.writeString(this.key);
+        parcel.writeString(this.name);
+        parcel.writeString(this.site);
+        parcel.writeInt(this.size);
+        parcel.writeString(this.type);
     }
 
     protected Video(Parcel in) {
         this.id = in.readString();
-        this.iso = in.readString();
         this.key = in.readString();
         this.name = in.readString();
         this.site = in.readString();
@@ -158,9 +139,9 @@ public class Video extends BaseModel {
         public Video[] newArray(int size) {
             return new Video[size];
         }
-    };
+    };*/
 
-    public static final class Response {
+/*    public static final class Response {
 
         @Expose
         public long id;
@@ -169,5 +150,5 @@ public class Video extends BaseModel {
         @SerializedName("results")
         public List<Video> videos;
 
-    }
-}*/
+    }*/
+}

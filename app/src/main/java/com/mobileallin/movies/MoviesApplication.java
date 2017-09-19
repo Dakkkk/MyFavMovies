@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.mobileallin.movies.database.MoviesDatabase;
-import com.mobileallin.movies.database.MoviesDatabaseModule;
-import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.network.MovieService;
 import com.mobileallin.movies.utils.Initializer;
 import com.squareup.picasso.Picasso;
@@ -47,11 +45,11 @@ public class MoviesApplication extends Application {
 
         component = DaggerMoviesApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
-                .moviesDatabaseModule(new MoviesDatabaseModule(new MoviesDatabase(), new Movie())) //test, not sure abut this
+                //.moviesDatabaseModule(new MoviesDatabaseModule(new MoviesDatabase())) //test, not sure abut this
                 .build();
 
         //test
-        database = component.getMoviesDatabase();
+        //database = component.getMoviesDatabase();
         //test
 
         movieService = component.getMovieService();

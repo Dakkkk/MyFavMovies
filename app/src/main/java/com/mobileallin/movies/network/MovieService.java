@@ -3,6 +3,8 @@ package com.mobileallin.movies.network;
 
 import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
+import com.mobileallin.movies.models.Review;
+import com.mobileallin.movies.models.Video;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,5 +20,8 @@ public interface MovieService {
     Call<APIResults<Movie>> getTopRated();
 
     @GET("{id}/videos")
-    Call<APIResults<Movie>> getVideos(@Path("id") int movieID);
+    Call<APIResults<Video>> getVideos(@Path("id") int movieID);
+
+    @GET("{id}/reviews")
+    Call<APIResults<Review>> getReviews(@Path("id") int movieID);
 }

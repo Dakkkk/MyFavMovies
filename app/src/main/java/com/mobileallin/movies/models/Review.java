@@ -1,21 +1,9 @@
-/*
- * Copyright 2015.  Emin Yahyayev
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.mobileallin.movies.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mobileallin.movies.database.MoviesDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -23,6 +11,8 @@ import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import java.util.List;
 
 
 @Table(database = MoviesDatabase.class)
@@ -36,6 +26,8 @@ public class Review extends BaseModel {
     private static final String AUTHOR_KEY = "author";
     private static final String CONTENT_KEY = "content";
     private static final String URL_KEY = "url";
+
+    public Review(){}
 
     @PrimaryKey
     @Column
@@ -96,10 +88,25 @@ public class Review extends BaseModel {
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
-}
+
+    protected Review(Parcel in) {
+        this.id = in.readString();
+        this.author = in.readString();
+        this.content = in.readString();
+        this.url = in.readString();
+    }
+
+    public static final Parcelable.Creator<Review> CREATOR = new Parcelable.Creator<Review>() {
+        public Review createFromParcel(Parcel source) {
+            return new Review(source);
+        }
+
+        public Review[] newArray(int size) {
+            return new Review[size];
+        }
+    };
 
 
-/*
 public static final class Response {
 
         @Expose
@@ -121,4 +128,4 @@ public static final class Response {
         public int totalResults;
 
     }
-}*/
+}

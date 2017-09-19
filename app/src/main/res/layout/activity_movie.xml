@@ -69,6 +69,15 @@
             android:textSize="@dimen/detail_title_text"
             tools:text="@string/movie_title" />
 
+
+        <TextView
+            android:id="@+id/movie_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/detail_title_text"
+            tools:text="@string/movie_title" />
+
         <VideoView
             android:id="@+id/detail_video"
             android:layout_width="wrap_content"

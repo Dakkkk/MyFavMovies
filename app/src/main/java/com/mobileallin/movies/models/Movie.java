@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import com.mobileallin.movies.database.MoviesDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
-import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
@@ -86,9 +85,13 @@ public class Movie extends BaseModel implements Parcelable {
         plotSynopsis = in.readString();
         userRating = in.readDouble();
         releaseDate = in.readString();
-        favourite = (Boolean) in.readValue( null );
-//        videos = in.createTypedArrayList(Video.CREATOR);
-//        reviews = in.createTypedArrayList(Review.CREATOR);
+        favourite = (Boolean) in.readValue( getClass().getClassLoader() );
+/*
+        videos = in.createTypedArrayList(Video.CREATOR);
+*/
+/*
+        reviews = in.createTypedArrayList(Review.CREATOR);
+*/
         favouriteMovies = in.createTypedArrayList(Movie.CREATOR);
     }
 
@@ -180,8 +183,8 @@ public class Movie extends BaseModel implements Parcelable {
         parcel.writeDouble(this.getUserRating());
         parcel.writeString(this.getReleaseDate());
         parcel.writeValue(this.isFavourite());
-        parcel.writeList(this.getVideos());
-        parcel.writeList(this.getReviews());
+       /* parcel.writeList(this.getVideos());
+        parcel.writeList(this.getReviews());*/
     }
 
     public void setVideos(List<Video> videos) {
@@ -189,27 +192,36 @@ public class Movie extends BaseModel implements Parcelable {
         videos.forEach(v -> v.setMovie(this));
     }
 
-    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "reviews")
+  /*  @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "reviews")
     public List<Review> getReviews() {
-    /*    if (reviews == null) {
+        if (reviews == null) {
             reviews = SQLite.select()
                     .from(Review.class)
                     .where(Review_Table.movie_id.is(id))
                     .queryList();
         }
-        return reviews;*/
-        return null;
-    }
+        return reviews;
+    }*/
 
-    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "videos")
+/*    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "videos")
     public List<Video> getVideos() {
-       /* if (videos == null) {
+        if (videos == null) {
             videos = SQLite.select()
                     .from(Video.class)
                     .where(Video_Table.movie_id.is(id))
                     .queryList();
         }
-        return videos;*/
-        return null;
-    }
+        return videos;
+    }*/
+
+ /*   @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "favourite")
+    public List<Movie> getFavouriteMovies() {
+        if (favouriteMovies == null) {
+            favouriteMovies = SQLite.select()
+                    .from(Movie.class)
+                    .where(Movie_Table.favourite.is(true))
+                    .queryList();
+        }
+        return favouriteMovies;
+    }*/
 }

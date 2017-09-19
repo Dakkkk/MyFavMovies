@@ -1,6 +1,7 @@
 package com.mobileallin.movies.utils;
 
 import android.app.Application;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.raizlabs.android.dbflow.config.FlowConfig;
@@ -22,6 +23,10 @@ public class Initializer {
         if (!LeakCanary.isInAnalyzerProcess(application)) {
             LeakCanary.install(application);
         }
+    }
+
+    public static void initDb(@NonNull Context application) {
+        FlowManager.init(new FlowConfig.Builder(application).build());
     }
 }
 
