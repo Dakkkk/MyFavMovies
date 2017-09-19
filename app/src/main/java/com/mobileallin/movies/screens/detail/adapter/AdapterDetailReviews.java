@@ -24,7 +24,7 @@ import javax.inject.Inject;
  * Created by Dawid on 2017-09-19.
  */
 
-public class AdapterMovieActivity extends RecyclerView.Adapter<AdapterMovieActivity.DetailViewHolder> {
+public class AdapterDetailReviews extends RecyclerView.Adapter<AdapterDetailReviews.DetailViewHolder> {
 
     private Context mContext;
     private List<Review> reviewsList = new ArrayList<>(0);
@@ -33,12 +33,12 @@ public class AdapterMovieActivity extends RecyclerView.Adapter<AdapterMovieActiv
     public AdapterMovies.MovieOnItemClick mOnMovieClick;
 
     @Inject
-    public AdapterMovieActivity(MovieActivity context) {
+    public AdapterDetailReviews(MovieActivity context) {
         this.mContext = context;
     }
 
 
-    public AdapterMovieActivity( @NonNull Context context) {
+    public AdapterDetailReviews(@NonNull Context context) {
         this.mContext = context;
     }
 
@@ -49,10 +49,10 @@ public class AdapterMovieActivity extends RecyclerView.Adapter<AdapterMovieActiv
 
 
     @Override
-    public AdapterMovieActivity.DetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdapterDetailReviews.DetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.detail_item, parent, false);
-        return new AdapterMovieActivity.DetailViewHolder(view);
+                .inflate(R.layout.detail_reviews_item, parent, false);
+        return new AdapterDetailReviews.DetailViewHolder(view);
     }
 
     @Override

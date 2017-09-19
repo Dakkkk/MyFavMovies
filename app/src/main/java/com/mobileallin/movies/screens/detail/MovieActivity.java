@@ -1,9 +1,12 @@
 package com.mobileallin.movies.screens.detail;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
@@ -16,8 +19,12 @@ import com.mobileallin.movies.R;
 import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Review;
+import com.mobileallin.movies.models.Video;
 import com.mobileallin.movies.network.MovieService;
-import com.mobileallin.movies.screens.detail.adapter.AdapterMovieActivity;
+import com.mobileallin.movies.screens.detail.adapter.AdapterDetailReviews;
+import com.mobileallin.movies.screens.detail.adapter.AdapterDetailVideos;
+import com.mobileallin.movies.screens.detail.adapter.VideoClickModule;
+import com.mobileallin.movies.utils.DetailCallCriteria;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -37,16 +44,22 @@ import retrofit2.Response;
  */
 
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity implements AdapterDetailVideos.VideoOnClickHandler {
 
     @BindView(R.id.detail_reviews_grid)
     RecyclerView reviewsListView;
+
+    @BindView(R.id.detail_videos_grid)
+    RecyclerView videosListView;
 
     @Inject
     MovieService movieService;
 
     @Inject
-    AdapterMovieActivity adapterReviews;
+    AdapterDetailReviews adapterReviews;
+
+    @Inject
+    AdapterDetailVideos adapterVideos;
 
     public static final String MOVIE_KEY = "MovieActivity.Movie.key";
     Movie movie;
@@ -62,6 +75,7 @@ public class MovieActivity extends AppCompatActivity {
         MovieActivityComponent component = DaggerMovieActivityComponent.builder()
                 .movieActivityModule(new MovieActivityModule(this))
                 .moviesApplicationComponent(MoviesApplication.get(this).component())
+                .videoClickModule(new VideoClickModule(this))
                 .build();
 
         component.injectMovieActivity(this);
@@ -107,12 +121,20 @@ public class MovieActivity extends AppCompatActivity {
         reviewsCall = movieService.getReviews(movie.getId());
         Log.i("Detail-reviews", String.valueOf(reviewsCall));
 
-        RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
-        reviewsListView.setLayoutManager(manager);
+        RecyclerView.LayoutManager managerRev = new GridLayoutManager(this, 2);
+        reviewsListView.setLayoutManager(managerRev);
         reviewsListView.setAdapter(adapterReviews);
 
+        RecyclerView.LayoutManager managerVid = new LinearLayoutManager(this);
+        videosListView.setLayoutManager(managerVid);
+        videosListView.setAdapter(adapterVideos);
 
-        reviewsCall.enqueue(new Callback<APIResults<Review>>() {
+        makeApiCall(DetailCallCriteria.REVIEWS);
+
+        makeApiCall(DetailCallCriteria.VIDEOS);
+
+
+   /*     reviewsCall.enqueue(new Callback<APIResults<Review>>() {
             @Override
             public void onResponse(Call<APIResults<Review>> call, Response<APIResults<Review>> response) {
                 Log.i("REVIEWS response", String.valueOf(response.body().results.get(0).getContent()));
@@ -124,7 +146,7 @@ public class MovieActivity extends AppCompatActivity {
                 Log.e("API failure", t.getMessage());
                 Toast.makeText(MovieActivity.this, "Error getting reviews " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
 /*
         TextView reviewsText = findViewById(R.id.movie_reviews);
@@ -156,6 +178,41 @@ public class MovieActivity extends AppCompatActivity {
                 });
     }
 
+    public void makeApiCall(DetailCallCriteria criteria) {
+        if (criteria == DetailCallCriteria.REVIEWS) {
+            Call<APIResults<Review>> call = movieService.getReviews(movie.getId());
+            call.enqueue(new Callback<APIResults<Review>>() {
+                @Override
+                public void onResponse(Call<APIResults<Review>> call, Response<APIResults<Review>> response) {
+                    Log.i("REVIEWS response", String.valueOf(response.body().results.get(0).getContent()));
+                    adapterReviews.swapData(response.body().results);
+                }
+
+                @Override
+                public void onFailure(Call<APIResults<Review>> call, Throwable t) {
+                    Log.e("REVIEWS failure", t.getMessage());
+                    Toast.makeText(MovieActivity.this, "Error getting reviews " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else if (criteria == DetailCallCriteria.VIDEOS) {
+            Call<APIResults<Video>> call = movieService.getVideos(movie.getId());
+            call.enqueue(new Callback<APIResults<Video>>() {
+                @Override
+                public void onResponse(Call<APIResults<Video>> call, Response<APIResults<Video>> response) {
+                    Log.i("Videos response", String.valueOf(response.body().results.get(0).getMovie()));
+                    adapterVideos.swapData(response.body().results);
+                }
+
+                @Override
+                public void onFailure(Call<APIResults<Video>> call, Throwable t) {
+                    Log.e("Videos failure", t.getMessage());
+                    Toast.makeText(MovieActivity.this, "Error getting reviews " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+
     private void setReviews(List<Review> reviews) {
         if (reviews == null || reviews.size() == 0) {
             Toast.makeText(this, "No favourite movies!", Toast.LENGTH_SHORT).show();
@@ -175,5 +232,25 @@ public class MovieActivity extends AppCompatActivity {
         if (movie != null) {
             outState.putParcelable(MOVIE_KEY, Parcels.wrap(movie));
         }
+    }
+
+    @Override
+    public void onClick(Video video) {
+        String videoID = video.getKey();
+        watchYoutubeVideo(videoID);
+        
+
+    }
+
+    private void watchYoutubeVideo(String videoID) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + videoID)));
+        } catch (ActivityNotFoundException ex) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl(videoID))));
+        }
+    }
+
+    private static String youtubeUrl(String videoID) {
+        return "https://youtu.be/" + videoID;
     }
 }
