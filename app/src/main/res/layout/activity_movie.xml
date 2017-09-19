@@ -45,9 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_margin"
-            android:textColor="@android:color/black"
             android:gravity="center"
             android:padding="@dimen/small_margin"
+            android:textColor="@android:color/black"
             android:textSize="@dimen/detail_title_text"
             android:textStyle="italic"
             tools:text="@string/movie_title" />
@@ -78,10 +78,21 @@
             android:textSize="@dimen/detail_title_text"
             tools:text="@string/movie_title" />
 
-        <VideoView
-            android:id="@+id/detail_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--    <VideoView
+                android:id="@+id/detail_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/detail_reviews_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </ScrollView>

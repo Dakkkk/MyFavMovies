@@ -3,6 +3,8 @@ package com.mobileallin.movies.screens.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,12 +17,17 @@ import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Review;
 import com.mobileallin.movies.network.MovieService;
+import com.mobileallin.movies.screens.detail.adapter.AdapterMovieActivity;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,11 +37,16 @@ import retrofit2.Response;
  */
 
 
-
 public class MovieActivity extends AppCompatActivity {
+
+    @BindView(R.id.detail_reviews_grid)
+    RecyclerView reviewsListView;
 
     @Inject
     MovieService movieService;
+
+    @Inject
+    AdapterMovieActivity adapterReviews;
 
     public static final String MOVIE_KEY = "MovieActivity.Movie.key";
     Movie movie;
@@ -44,6 +56,8 @@ public class MovieActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
+
+        ButterKnife.bind(this);
 
         MovieActivityComponent component = DaggerMovieActivityComponent.builder()
                 .movieActivityModule(new MovieActivityModule(this))
@@ -93,10 +107,16 @@ public class MovieActivity extends AppCompatActivity {
         reviewsCall = movieService.getReviews(movie.getId());
         Log.i("Detail-reviews", String.valueOf(reviewsCall));
 
+        RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
+        reviewsListView.setLayoutManager(manager);
+        reviewsListView.setAdapter(adapterReviews);
+
+
         reviewsCall.enqueue(new Callback<APIResults<Review>>() {
             @Override
             public void onResponse(Call<APIResults<Review>> call, Response<APIResults<Review>> response) {
                 Log.i("REVIEWS response", String.valueOf(response.body().results.get(0).getContent()));
+                adapterReviews.swapData(response.body().results);
             }
 
             @Override
@@ -134,6 +154,19 @@ public class MovieActivity extends AppCompatActivity {
                     } catch (Exception ignore) {
                     }
                 });
+    }
+
+    private void setReviews(List<Review> reviews) {
+        if (reviews == null || reviews.size() == 0) {
+            Toast.makeText(this, "No favourite movies!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.d("setMovies, fav", reviews.get(0).toString());
+        for (int i = 0; i < reviews.size(); i++) {
+            if (reviews.get(i).exists()) reviews.get(i).load();
+        }
+        //movies.stream().filter(Movie::exists).forEach(Movie::load);
+        adapterReviews.setMovies(reviews);
     }
 
     @Override
