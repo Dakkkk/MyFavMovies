@@ -234,12 +234,29 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
     }
 
     @Override
-    public void onClick(Video video) {
+    public void onClick(Video video, boolean share) {
         String videoID = video.getKey();
-        watchYoutubeVideo(videoID);
-        
-
+        if (share) {
+            startActivity(createShareVidIntent(videoID));
+        } else {
+            if (video.isYouTubeVideo()) {
+                watchYoutubeVideo(videoID);
+            } else {
+                Toast.makeText(this, "Don't know how to open video on site " + video.getSite(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
+
+    private Intent createShareVidIntent(String videoID) {
+        String content = "Watch " + movie.getOriginalTitle() + " " +
+                youtubeUrl(videoID) + " " + getString(R.string.app_hash_tag);
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, content);
+        return shareIntent;
+    }
+
 
     private void watchYoutubeVideo(String videoID) {
         try {

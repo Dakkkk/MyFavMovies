@@ -34,7 +34,7 @@ public class AdapterDetailVideos extends RecyclerView.Adapter<AdapterDetailVideo
     private VideoOnClickHandler mClickHandler;
 
     public interface VideoOnClickHandler {
-        void onClick(Video video);
+        void onClick(Video video, boolean share);
     }
 
 
@@ -127,7 +127,7 @@ public class AdapterDetailVideos extends RecyclerView.Adapter<AdapterDetailVideo
             if (mClickHandler != null) {
                 Video video = videosList.get(getAdapterPosition());
                 boolean share = view.getId() == R.id.video_share;
-                mClickHandler.onClick(video);
+                mClickHandler.onClick(video, share);
             }
         }
     }
