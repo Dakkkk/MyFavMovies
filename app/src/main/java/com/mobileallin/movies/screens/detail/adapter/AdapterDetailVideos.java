@@ -84,19 +84,25 @@ public class AdapterDetailVideos extends RecyclerView.Adapter<AdapterDetailVideo
 
     class DetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView mVideoAuthorTextView;
+        private TextView mVideoSiteTextView;
+        private TextView mVideoTitleTextView;
 /*
         private VideoView mVideoView;
 */
+/*
         private TextView mVideoUrlTextView;
+*/
 
         DetailViewHolder(View itemView) {
             super(itemView);
-            mVideoAuthorTextView = itemView.findViewById(R.id.detail_video_title);
+            mVideoSiteTextView = itemView.findViewById(R.id.detail_video_site);
+            mVideoTitleTextView = itemView.findViewById(R.id.detail_video_title);
 /*
             mVideoView = itemView.findViewById(R.id.detail_video);
 */
+/*
             mVideoUrlTextView = itemView.findViewById(R.id.detail_video_url);
+*/
             itemView.findViewById(R.id.video_share).setOnClickListener(this);
             itemView.findViewById(R.id.video_video).setOnClickListener(this);
 
@@ -104,11 +110,14 @@ public class AdapterDetailVideos extends RecyclerView.Adapter<AdapterDetailVideo
         }
 
         void setVideo(Video video) {
+/*
             mVideoUrlTextView.setText(video.getName());
+*/
 /*
             mVideoView.setVideoPath(video.getSite());
 */
-            mVideoAuthorTextView.setText(video.getSite());
+            mVideoSiteTextView.setText(video.getSite());
+            mVideoTitleTextView.setText(video.getName());
 
             Log.i("img", video.getSite());
         }

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -121,7 +120,7 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         reviewsCall = movieService.getReviews(movie.getId());
         Log.i("Detail-reviews", String.valueOf(reviewsCall));
 
-        RecyclerView.LayoutManager managerRev = new GridLayoutManager(this, 2);
+        RecyclerView.LayoutManager managerRev = new LinearLayoutManager(this);
         reviewsListView.setLayoutManager(managerRev);
         reviewsListView.setAdapter(adapterReviews);
 

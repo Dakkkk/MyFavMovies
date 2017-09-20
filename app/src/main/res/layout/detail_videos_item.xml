@@ -8,14 +8,14 @@
     android:layout_gravity="center"
     android:layout_margin="8dp"
     app:cardCornerRadius="4dp"
+    android:orientation="vertical"
     app:elevation="4dp">
 
     <TextView
-        android:id="@+id/detail_video_url"
-        android:layout_width="match_parent"
+        android:id="@+id/detail_video_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="3"
         android:alpha=".8"
         android:gravity="center"
         android:minHeight="@dimen/main_title_text"
@@ -24,30 +24,24 @@
         android:textSize="@dimen/main_title_text"
         android:textStyle="bold" />
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
 
         <Button
             android:id="@+id/video_video"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@android:color/holo_blue_dark"/>
-
-   <!--     <View
-            android:id="@+id/detail_video"
-            android:layout_width="250dp"
-            android:layout_height="250dp" />-->
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/video" />
 
         <TextView
-            android:id="@+id/detail_video_title"
-            android:layout_width="match_parent"
+            android:id="@+id/detail_video_site"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="3"
             android:alpha=".8"
             android:gravity="center"
             android:minHeight="@dimen/main_title_text"
@@ -59,8 +53,8 @@
         <Button
             android:id="@+id/video_share"
             android:layout_width="50dp"
-            android:layout_height="50dp" />
-
+            android:layout_height="50dp"
+            android:background="@drawable/share" />
 
 
     </LinearLayout>
