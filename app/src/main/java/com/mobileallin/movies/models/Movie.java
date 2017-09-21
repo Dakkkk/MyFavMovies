@@ -3,8 +3,10 @@ package com.mobileallin.movies.models;
 import com.google.gson.annotations.SerializedName;
 import com.mobileallin.movies.database.MoviesDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.OneToMany;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import org.json.JSONException;
@@ -36,9 +38,11 @@ public class Movie extends BaseModel {
     private static final String PLOT_SYNOPSIS_KEY = "overview";
     private static final String USER_RATING_KEY = "vote_average";
     private static final String RELEASE_DATE_KEY = "release_date";
+/*
     private static final String FAVOURITE = "favourite";
+*/
 
-    @PrimaryKey(autoincrement = true)
+    @PrimaryKey
     @Column
     @SerializedName(ID_KEY)
     public int id;
@@ -66,12 +70,15 @@ public class Movie extends BaseModel {
     @Column(defaultValue = "0")
     private boolean favourite;
 
+/*
+    @Column
+    @SerializedName(FAVOURITE)
+    private boolean favourite;
+*/
+
     List<Video> videos;
 
     List<Review> reviews;
-
-    List<Movie> favouriteMovies;
-
 
     public Movie() {
         // for DB
@@ -85,7 +92,7 @@ public class Movie extends BaseModel {
             plotSynopsis = json.getString(PLOT_SYNOPSIS_KEY);
             userRating = json.getDouble(USER_RATING_KEY);
             releaseDate = json.getString(RELEASE_DATE_KEY);
-            favourite = true;
+            favourite = false;
         } catch (JSONException ex) {
             throw new IllegalArgumentException(ex);
         }
@@ -157,6 +164,35 @@ public class Movie extends BaseModel {
     public void setVideos(List<Video> videos) {
         this.videos = videos;
         videos.forEach(v -> v.setMovie(this));
+    }
+
+
+    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "videos")
+    public List<Video> getVideos() {
+        if (videos == null) {
+            videos = SQLite.select()
+                    .from(Video.class)
+                    .where(Video_Table.movie_id.is(id))
+                    .queryList();
+        }
+        return videos;
+    }
+
+
+    @OneToMany(methods = {OneToMany.Method.ALL}, variableName = "reviews")
+    public List<Review> getReviews() {
+        if (reviews == null) {
+            reviews = SQLite.select()
+                    .from(Review.class)
+                    .where(Review_Table.movie_id.is(id))
+                    .queryList();
+        }
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+        reviews.forEach(r -> r.setMovie(this));
     }
 
 }

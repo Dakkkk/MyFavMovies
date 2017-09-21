@@ -164,6 +164,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
     //ToDo stream requres java 8!
     private void setMovies(List<Movie> movies) {
+        Log.d("setMovies", movies.toString());
         if (movies == null || movies.size() == 0) {
             Toast.makeText(this, "No favourite movies!", Toast.LENGTH_SHORT).show();
             return;

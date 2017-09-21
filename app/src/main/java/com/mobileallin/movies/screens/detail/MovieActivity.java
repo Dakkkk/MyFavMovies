@@ -93,6 +93,8 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
             return;
         }
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Log.d("MoviePict", String.valueOf(movie.getPosterURL()));
 
         ImageView moviePicture = findViewById(R.id.movie_poster_detail);
@@ -131,9 +133,20 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         videosListView.setLayoutManager(managerVid);
         videosListView.setAdapter(adapterVideos);
 
-        makeApiCall(DetailCallCriteria.REVIEWS);
+        // load reviews, videos from the database or make an API call
 
-        makeApiCall(DetailCallCriteria.VIDEOS);
+        if (movie.getReviews() == null || movie.getReviews().size() == 0) {
+            makeApiCall(DetailCallCriteria.REVIEWS);
+        }
+
+        if (movie.getVideos() == null || movie.getVideos().size() == 0) {
+            makeApiCall(DetailCallCriteria.VIDEOS);
+        }
+
+
+/*        makeApiCall(DetailCallCriteria.REVIEWS);
+
+        makeApiCall(DetailCallCriteria.VIDEOS);*/
 
 
    /*     reviewsCall.enqueue(new Callback<APIResults<Review>>() {
@@ -155,29 +168,29 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         reviewsText.setText(String.valueOf(movie.getReviews()));*/
 
         MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
+        favoriteButton.setFavorite(movie.isFavourite());
 
         Log.i("isFavourite", String.valueOf(movie.isFavourite()));
 
-        if (movie.isFavourite()) {
-            favoriteButton.setFavorite(true);
-        }
+        Log.d("Exists", String.valueOf(movie.exists()));
 
         favoriteButton.setOnFavoriteChangeListener(
                 (buttonView, favorite) -> {
-                    if (this.movie == null) return;
-                    // save movie
+                    if (movie == null) return;
+                    movie.setFavourite(favorite);
                     try {
-                        this.movie.setFavourite(!movie.isFavourite());
-                 /*       if (movie.exists()) {
-                            Log.d("fav", "update");*/
-                            this.movie.update();
-                       /* } else {
+                        if (movie.exists()) {
+                            Log.d("fav", "update");
+                            movie.update();
+                        } else {
                             Log.d("fav", "save");
                             movie.save();
-                        }*/
+                        }
                     } catch (Exception ignore) {
                     }
+                    Log.d("favChange", String.valueOf(movie.isFavourite()));
                 });
+
     }
 
     public void makeApiCall(DetailCallCriteria criteria) {
@@ -186,7 +199,9 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
             call.enqueue(new Callback<APIResults<Review>>() {
                 @Override
                 public void onResponse(Call<APIResults<Review>> call, Response<APIResults<Review>> response) {
-                    Log.i("REVIEWS response", String.valueOf(response.body().results.get(0).getContent()));
+/*
+                    if (response.body() == null) return;
+*/
                     adapterReviews.swapData(response.body().results);
                 }
 
@@ -201,7 +216,9 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
             call.enqueue(new Callback<APIResults<Video>>() {
                 @Override
                 public void onResponse(Call<APIResults<Video>> call, Response<APIResults<Video>> response) {
-                    Log.i("Videos response", String.valueOf(response.body().results.get(0).getMovie()));
+/*
+                    if (response.body() == null) return;
+*/
                     adapterVideos.swapData(response.body().results);
                 }
 
@@ -259,7 +276,6 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         shareIntent.putExtra(Intent.EXTRA_TEXT, content);
         return shareIntent;
     }
-
 
     private void watchYoutubeVideo(String videoID) {
         try {

@@ -13,5 +13,6 @@
   <string name="rating">Rating:</string>
   <string name="sort_by_favourite">Sort by favourite</string>
   <string name="app_hash_tag">#MyFavMovies</string>
+    <string name="action_favorite">Favourite</string>
 
 </resources>
