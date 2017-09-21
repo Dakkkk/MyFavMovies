@@ -143,6 +143,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                     .queryListResultCallback((__, movies) -> setMovies(movies))
                     .execute();
             return;
+/*
+            CursorLoader cursorLoader = new       CursorLoader(this, "ss", Movie_Table.favourite.is(true),null,null,null);
+*/
+
+
         }
 /*
         if (!NetworkUtility.isConnected(this)) {
@@ -184,7 +189,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     public void onClick(Movie movie) {
         Intent intent = new Intent(this, MovieActivity.class);
         intent.putExtra(MovieActivity.MOVIE_KEY, Parcels.wrap(movie));
-        Log.i("Click", "Clicked");
         startActivity(intent);
     }
 }

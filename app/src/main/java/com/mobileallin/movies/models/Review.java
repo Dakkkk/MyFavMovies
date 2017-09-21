@@ -1,8 +1,5 @@
 package com.mobileallin.movies.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mobileallin.movies.database.MoviesDatabase;
@@ -12,11 +9,13 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 
 @Table(database = MoviesDatabase.class)
-@org.parceler.Parcel
+@Parcel
 public class Review extends BaseModel {
 
     /*
@@ -89,14 +88,14 @@ public class Review extends BaseModel {
         this.movie = movie;
     }
 
-    protected Review(Parcel in) {
+  /*  protected Review(Parcel in) {
         this.id = in.readString();
         this.author = in.readString();
         this.content = in.readString();
         this.url = in.readString();
-    }
+    }*/
 
-    public static final Parcelable.Creator<Review> CREATOR = new Parcelable.Creator<Review>() {
+  /*  public static final Parcelable.Creator<Review> CREATOR = new Parcelable.Creator<Review>() {
         public Review createFromParcel(Parcel source) {
             return new Review(source);
         }
@@ -104,7 +103,7 @@ public class Review extends BaseModel {
         public Review[] newArray(int size) {
             return new Review[size];
         }
-    };
+    };*/
 
 
 public static final class Response {

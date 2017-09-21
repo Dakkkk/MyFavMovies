@@ -92,8 +92,11 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
             Toast.makeText(this, getResources().getString(R.string.no_movie_error), Toast.LENGTH_LONG).show();
             return;
         }
+
+        Log.d("MoviePict", String.valueOf(movie.getPosterURL()));
+
         ImageView moviePicture = findViewById(R.id.movie_poster_detail);
-        Picasso.with(getApplicationContext()).load(movie.getPosterURL()).into(moviePicture);
+        Picasso.with(getApplicationContext()).load(movie.getFullPosterURL()).into(moviePicture);
 
         TextView titleText = findViewById(R.id.movie_title_detail);
         titleText.setText(movie.getOriginalTitle());
@@ -161,17 +164,17 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
         favoriteButton.setOnFavoriteChangeListener(
                 (buttonView, favorite) -> {
-                    if (movie == null) return;
+                    if (this.movie == null) return;
                     // save movie
                     try {
                         this.movie.setFavourite(!movie.isFavourite());
-                        if (this.movie.exists()) {
-                            Log.d("fav", "update");
+                 /*       if (movie.exists()) {
+                            Log.d("fav", "update");*/
                             this.movie.update();
-                        } else {
+                       /* } else {
                             Log.d("fav", "save");
-                            this.movie.save();
-                        }
+                            movie.save();
+                        }*/
                     } catch (Exception ignore) {
                     }
                 });

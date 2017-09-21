@@ -8,9 +8,11 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import org.parceler.Parcel;
+
 @Table(database = MoviesDatabase.class)
-@org.parceler.Parcel
-public class Video extends BaseModel{
+@Parcel
+public class Video extends BaseModel {
 
     /*
         JSON KEYS

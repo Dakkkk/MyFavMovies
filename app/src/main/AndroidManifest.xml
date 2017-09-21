@@ -25,6 +25,12 @@
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".screens.HomeActivity"/>
     </activity>
+
+    <provider
+        android:name=".database.MoviesProvider_Provider"
+        android:authorities="com.mobileallin.movie"
+        android:exported="false"/>
+
   </application>
 
 </manifest>
