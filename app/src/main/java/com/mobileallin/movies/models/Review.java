@@ -26,7 +26,8 @@ public class Review extends BaseModel {
     private static final String CONTENT_KEY = "content";
     private static final String URL_KEY = "url";
 
-    public Review(){}
+    public Review() {
+    }
 
     @PrimaryKey
     @Column
@@ -105,8 +106,7 @@ public class Review extends BaseModel {
         }
     };*/
 
-
-public static final class Response {
+    public static final class Response {
 
         @Expose
         public long id;

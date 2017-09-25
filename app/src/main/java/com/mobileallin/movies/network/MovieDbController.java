@@ -19,12 +19,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Dawid on 2017-09-25.
+ * Controller for making endpoint API calls
  */
-/*Controller for making API calls*/
+
+//ToDo rewrite the functions in order to get more DRY code
 public class MovieDbController {
-
-
 
     public void makeApiCall(MovieService movieService, AdapterDetailReviews adapterReviews,
                             AdapterDetailVideos adapterVideos, Context context, Movie movie,

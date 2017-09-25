@@ -1,4 +1,4 @@
-package com.mobileallin.movies.screens;
+package com.mobileallin.movies.screens.home.activity;
 
 import com.mobileallin.movies.screens.home.MovieClickModule;
 

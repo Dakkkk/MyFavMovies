@@ -8,10 +8,9 @@ import com.raizlabs.android.dbflow.annotation.provider.ContentUri;
 import com.raizlabs.android.dbflow.annotation.provider.TableEndpoint;
 
 /**
- * Database / ContentPRovider accrding to:
+ * Database / dbFlow ContentProvider accrding to:
  * https://github.com/codepath/android_guides/wiki/DBFlow-Guide
  */
-/*dbFlow Content Provider needs authority, database, baseContentUri*/
 
 @ContentProvider(
         authority = MoviesDatabase.AUTHORITY,
@@ -34,15 +33,15 @@ public class MoviesDatabase {
         return builder.build();
     }
 
-  /*  Movie endpoint declaration, ENDPOINT here*/
-  @TableEndpoint(name = MovieProviderModel.ENDPOINT, contentProvider = MovieProviderModel.class)
-  static class MovieProviderModel {
+    /*  Movie endpoint declaration, ENDPOINT here*/
+    @TableEndpoint(name = MovieProviderModel.ENDPOINT, contentProvider = MovieProviderModel.class)
+    static class MovieProviderModel {
 
-      public static final String ENDPOINT = "Movie";
+        public static final String ENDPOINT = "Movie";
 
-      @ContentUri(path = MovieProviderModel.ENDPOINT,
-              type = ContentUri.ContentType.VND_MULTIPLE + ENDPOINT)
-      public static final Uri CONTENT_URI = buildUri(ENDPOINT);
+        @ContentUri(path = MovieProviderModel.ENDPOINT,
+                type = ContentUri.ContentType.VND_MULTIPLE + ENDPOINT)
+        public static final Uri CONTENT_URI = buildUri(ENDPOINT);
 
      /* @ContentUri(
               path = ENDPOINT,
@@ -58,5 +57,5 @@ public class MoviesDatabase {
       static Uri withID(int id) {
           return buildUri(ENDPOINT, Integer.toString(id));
       }*/
-  }
+    }
 }

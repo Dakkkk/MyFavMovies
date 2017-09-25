@@ -13,7 +13,7 @@
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".screens.HomeActivity">
+    <activity android:name=".screens.home.activity.HomeActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -22,10 +22,10 @@
     </activity>
 
     <activity android:name=".screens.detail.MovieActivity"
-        android:parentActivityName=".screens.HomeActivity">
+        android:parentActivityName=".screens.home.activity.HomeActivity">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
-          android:value=".screens.HomeActivity"/>
+          android:value=".screens.home.activity.HomeActivity"/>
     </activity>
 
     <provider

@@ -8,16 +8,16 @@ import dagger.Provides;
  */
 @Module
 public class VideoClickModule {
-        private final AdapterDetailVideos.VideoOnClickHandler videoClick;
+    private final AdapterDetailVideos.VideoOnClickHandler videoClick;
 
-        public VideoClickModule(AdapterDetailVideos.VideoOnClickHandler click) {
-            this.videoClick = click;
-        }
+    public VideoClickModule(AdapterDetailVideos.VideoOnClickHandler click) {
+        this.videoClick = click;
+    }
 
 
     @Provides
-        public AdapterDetailVideos.VideoOnClickHandler videoClick() {
-            return videoClick;
-        }
+    public AdapterDetailVideos.VideoOnClickHandler videoClick() {
+        return videoClick;
+    }
 
 }

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.mobileallin.movies.R;
 import com.mobileallin.movies.models.Movie;
-import com.mobileallin.movies.screens.HomeActivity;
+import com.mobileallin.movies.screens.home.activity.HomeActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
