@@ -1,3 +1,4 @@
+/*
 package com.mobileallin.movies.database;
 
 import android.net.Uri;
@@ -6,10 +7,14 @@ import com.raizlabs.android.dbflow.annotation.provider.ContentProvider;
 import com.raizlabs.android.dbflow.annotation.provider.ContentUri;
 import com.raizlabs.android.dbflow.annotation.provider.TableEndpoint;
 
+*/
 /**
  * Created by Dawid on 2017-09-20.
- */
-/*dbFlow Content Provider needs authority, database, baseContentUri*/
+ *//*
+
+*/
+/*dbFlow Content Provider needs authority, database, baseContentUri*//*
+
 
 @ContentProvider(
         authority = MoviesProvider.AUTHORITY,
@@ -51,3 +56,4 @@ public class MoviesProvider {
         }
     }
 }
+*/

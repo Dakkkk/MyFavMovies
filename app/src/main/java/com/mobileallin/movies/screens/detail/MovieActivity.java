@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.mobileallin.movies.R.id.movie_poster_detail;
+import static com.mobileallin.movies.R.id.movie_rating;
+import static com.mobileallin.movies.R.id.movie_synopsis;
+import static com.mobileallin.movies.R.id.movie_title_detail;
+import static com.mobileallin.movies.R.id.release_data;
+
 /**
  * Created by Dawid on 2017-08-31.
  */
@@ -50,6 +57,9 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
     @BindView(R.id.detail_videos_grid)
     RecyclerView videosListView;
+
+    @BindView(R.id.detail_view)
+    ScrollView detailView;
 
     @Inject
     MovieService movieService;
@@ -95,35 +105,20 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Log.d("MoviePict", String.valueOf(movie.getPosterURL()));
-
-        ImageView moviePicture = findViewById(R.id.movie_poster_detail);
+        ImageView moviePicture = detailView.findViewById(movie_poster_detail);
         Picasso.with(getApplicationContext()).load(movie.getFullPosterURL()).into(moviePicture);
 
-        TextView titleText = findViewById(R.id.movie_title_detail);
+        TextView titleText = detailView.findViewById(movie_title_detail);
         titleText.setText(movie.getOriginalTitle());
 
-        TextView synopsisText = findViewById(R.id.movie_synopsis);
-        Log.d("Synopsis", String.valueOf(movie.getPlotSynopsis()));
-        synopsisText.setText(movie.getPlotSynopsis());
+        TextView movieSynopsis = detailView.findViewById(movie_synopsis);
+        movieSynopsis.setText(movie.getPlotSynopsis());
 
-        TextView releaseText = findViewById(R.id.release_data);
-        Log.d("Rdate", String.valueOf(movie.getReleaseDate()));
-        releaseText.setText(movie.getReleaseDate());
+        TextView releaseData = detailView.findViewById(release_data);
+        releaseData.setText(movie.getReleaseDate());
 
- /*       VideoView videoView = findViewById(R.id.detail_video);
-        if (movie.getVideos() != null) {
-            Log.i("videos", movie.getVideos().toString());
-            videoView.setVideoPath(movie.getVideos().get(1).getSite());
-        }
-*/
-        TextView ratingText = findViewById(R.id.movie_rating);
-        ratingText.setText(String.valueOf(movie.getUserRating()));
-
-        Call<APIResults<Review>> reviewsCall;
-
-        reviewsCall = movieService.getReviews(movie.getId());
-        Log.i("Detail-reviews", String.valueOf(reviewsCall));
+        TextView movieRating = detailView.findViewById(movie_rating);
+        movieRating.setText(String.valueOf(movie.getUserRating()));
 
         RecyclerView.LayoutManager managerRev = new LinearLayoutManager(this);
         reviewsListView.setLayoutManager(managerRev);
@@ -134,38 +129,12 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         videosListView.setAdapter(adapterVideos);
 
         // load reviews, videos from the database or make an API call
-
         if (movie.getReviews() == null || movie.getReviews().size() == 0) {
             makeApiCall(DetailCallCriteria.REVIEWS);
         }
-
         if (movie.getVideos() == null || movie.getVideos().size() == 0) {
             makeApiCall(DetailCallCriteria.VIDEOS);
         }
-
-
-/*        makeApiCall(DetailCallCriteria.REVIEWS);
-
-        makeApiCall(DetailCallCriteria.VIDEOS);*/
-
-
-   /*     reviewsCall.enqueue(new Callback<APIResults<Review>>() {
-            @Override
-            public void onResponse(Call<APIResults<Review>> call, Response<APIResults<Review>> response) {
-                Log.i("REVIEWS response", String.valueOf(response.body().results.get(0).getContent()));
-                adapterReviews.swapData(response.body().results);
-            }
-
-            @Override
-            public void onFailure(Call<APIResults<Review>> call, Throwable t) {
-                Log.e("API failure", t.getMessage());
-                Toast.makeText(MovieActivity.this, "Error getting reviews " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-/*
-        TextView reviewsText = findViewById(R.id.movie_reviews);
-        reviewsText.setText(String.valueOf(movie.getReviews()));*/
 
         MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
         favoriteButton.setFavorite(movie.isFavourite());
