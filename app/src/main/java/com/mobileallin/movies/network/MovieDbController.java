@@ -24,8 +24,11 @@ import retrofit2.Response;
 /*Controller for making API calls*/
 public class MovieDbController {
 
+
+
     public void makeApiCall(MovieService movieService, AdapterDetailReviews adapterReviews,
-                            AdapterDetailVideos adapterVideos, Context context, Movie movie, DetailCallCriteria criteria) {
+                            AdapterDetailVideos adapterVideos, Context context, Movie movie,
+                            DetailCallCriteria criteria) {
         if (criteria == DetailCallCriteria.REVIEWS) {
             Call<APIResults<Review>> call = movieService.getReviews(movie.getId());
             call.enqueue(new Callback<APIResults<Review>>() {

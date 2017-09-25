@@ -20,6 +20,7 @@ import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Review;
 import com.mobileallin.movies.models.Video;
+import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;
 import com.mobileallin.movies.screens.detail.adapter.AdapterDetailReviews;
 import com.mobileallin.movies.screens.detail.adapter.AdapterDetailVideos;
@@ -69,6 +70,9 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
     @Inject
     AdapterDetailVideos adapterVideos;
+
+    @Inject
+    MovieDbController movieDbController;
 
     public static final String MOVIE_KEY = "MovieActivity.Movie.key";
     Movie movie;
@@ -130,11 +134,24 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
         // load reviews, videos from the database or make an API call
         if (movie.getReviews() == null || movie.getReviews().size() == 0) {
-            makeApiCall(DetailCallCriteria.REVIEWS);
+            movieDbController.makeApiCall(movieService, adapterReviews, adapterVideos,
+                    this, movie, DetailCallCriteria.REVIEWS);
         }
         if (movie.getVideos() == null || movie.getVideos().size() == 0) {
+            movieDbController.makeApiCall(movieService, adapterReviews, adapterVideos,
+                    this, movie, DetailCallCriteria.VIDEOS);
+/*
             makeApiCall(DetailCallCriteria.VIDEOS);
+*/
         }
+
+        // load videos and reviews
+       /* if (movie.getVideos() == null || movie.getVideos().size() == 0) {
+            new TheMovieDBController<>(movieService.getVideos(movie.getId())).getResults();
+        }
+        if (movie.getReviews() == null || movie.getReviews().size() == 0) {
+            new TheMovieDBController<>(api -> api.getReviews(movie.getId()), this::setReviews).getResults();
+        }*/
 
         MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
         favoriteButton.setFavorite(movie.isFavourite());
@@ -161,6 +178,24 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
                 });
 
     }
+
+   /* private void setVideos(List<Video> videos) {
+        if (videos == null) {
+            return;
+        }
+        movie.setVideos(videos);
+        adapterVideos.setVideos(videos);
+    }
+
+    private void setReviews(List<Review> reviews) {
+        if (reviews == null) {
+            return;
+        }
+        movie.setReviews(reviews);
+        adapterReviews.setMovies(reviews);
+    }*/
+
+
 
     public void makeApiCall(DetailCallCriteria criteria) {
         if (criteria == DetailCallCriteria.REVIEWS) {

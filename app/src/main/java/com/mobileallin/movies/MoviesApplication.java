@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.mobileallin.movies.database.MoviesDatabase;
+import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;
 import com.mobileallin.movies.utils.Initializer;
 import com.squareup.picasso.Picasso;
@@ -24,6 +25,7 @@ public class MoviesApplication extends Application {
 
     private MoviesDatabase database;
 
+    private MovieDbController movieDbController;
 
     //   Activity
 
@@ -45,15 +47,13 @@ public class MoviesApplication extends Application {
 
         component = DaggerMoviesApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
-                //.moviesDatabaseModule(new MoviesDatabaseModule(new MoviesDatabase())) //test, not sure abut this
+                .moviesDbControllerModule(new MoviesDbControllerModule(new MovieDbController())) //ToDo check if this is fully correct
                 .build();
-
-        //test
-        //database = component.getMoviesDatabase();
-        //test
 
         movieService = component.getMovieService();
         picasso = component.getPicasso();
+        movieDbController = component.getMovieDbController();
+
 
         Initializer.init(this);
     }
