@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.mobileallin.movies.MoviesApplication;
 import com.mobileallin.movies.R;
-import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Review;
 import com.mobileallin.movies.models.Video;
@@ -36,9 +35,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.mobileallin.movies.R.id.movie_poster_detail;
 import static com.mobileallin.movies.R.id.movie_rating;
@@ -197,15 +193,15 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
 
 
-    public void makeApiCall(DetailCallCriteria criteria) {
+ /*   public void makeApiCall(DetailCallCriteria criteria) {
         if (criteria == DetailCallCriteria.REVIEWS) {
             Call<APIResults<Review>> call = movieService.getReviews(movie.getId());
             call.enqueue(new Callback<APIResults<Review>>() {
                 @Override
                 public void onResponse(Call<APIResults<Review>> call, Response<APIResults<Review>> response) {
-/*
+*//*
                     if (response.body() == null) return;
-*/
+*//*
                     adapterReviews.swapData(response.body().results);
                 }
 
@@ -220,9 +216,9 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
             call.enqueue(new Callback<APIResults<Video>>() {
                 @Override
                 public void onResponse(Call<APIResults<Video>> call, Response<APIResults<Video>> response) {
-/*
+*//*
                     if (response.body() == null) return;
-*/
+*//*
                     adapterVideos.swapData(response.body().results);
                 }
 
@@ -233,7 +229,7 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
                 }
             });
         }
-    }
+    }*/
 
 
     private void setReviews(List<Review> reviews) {

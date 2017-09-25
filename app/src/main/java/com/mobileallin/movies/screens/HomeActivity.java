@@ -15,6 +15,7 @@ import com.mobileallin.movies.R;
 import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Movie_Table;
+import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;
 import com.mobileallin.movies.screens.detail.MovieActivity;
 import com.mobileallin.movies.screens.home.AdapterMovies;
@@ -31,8 +32,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class HomeActivity extends AppCompatActivity implements AdapterMovies.MovieOnItemClick {
@@ -47,6 +46,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
     @Inject
     AdapterMovies adapterMovies;
+
+    @Inject
+    MovieDbController movieDbController;
 
     private SortingCriteria currentCriteria;
 
@@ -70,11 +72,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         listView.setLayoutManager(manager);
         listView.setAdapter(adapterMovies);
 
-        getSortedMovies(SortingCriteria.MOST_POPULAR);
-
+        movieDbController.getSortedMovies(reposCall, movieService,
+                adapterMovies, this, SortingCriteria.MOST_POPULAR);
     }
 
-    public void getSortedMovies(SortingCriteria sortingCriteria) {
+/*    public void getSortedMovies(SortingCriteria sortingCriteria) {
         reposCall = movieService.getMostPopular();
         if (sortingCriteria == SortingCriteria.MOST_POPULAR) {
             reposCall = movieService.getMostPopular();
@@ -94,7 +96,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                 Toast.makeText(HomeActivity.this, "Error getting movies " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
 
     @Override
@@ -157,7 +159,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
         currentCriteria = criteria;
 
-        getSortedMovies(currentCriteria);
+        movieDbController.getSortedMovies(reposCall, movieService,
+                adapterMovies, this, currentCriteria);
 
     }
 

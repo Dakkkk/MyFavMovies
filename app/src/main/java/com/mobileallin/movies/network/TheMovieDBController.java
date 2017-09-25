@@ -1,3 +1,4 @@
+/*
 package com.mobileallin.movies.network;
 
 import android.support.annotation.NonNull;
@@ -19,9 +20,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+*/
 /**
  * Abstract controller for getting movies from endpoint
- */
+ *//*
+
 public class TheMovieDBController<R> implements Callback<APIResults<R>> {
 
     private static final MovieService API = createAPI();
@@ -81,11 +84,13 @@ public class TheMovieDBController<R> implements Callback<APIResults<R>> {
         }
     }
 
-    /**
+    */
+/**
      * Create API endpoint
      *
      * @return API
-     */
+     *//*
+
     private static MovieService createAPI() {
         Log.i("APIcall start", "createAPI");
         OkHttpClient client = new OkHttpClient.Builder()
@@ -113,3 +118,4 @@ public class TheMovieDBController<R> implements Callback<APIResults<R>> {
         return retrofit.create(MovieService.class);
     }
 }
+*/
