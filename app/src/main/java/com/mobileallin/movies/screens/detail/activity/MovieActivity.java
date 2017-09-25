@@ -1,4 +1,4 @@
-package com.mobileallin.movies.screens.detail;
+package com.mobileallin.movies.screens.detail.activity;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;

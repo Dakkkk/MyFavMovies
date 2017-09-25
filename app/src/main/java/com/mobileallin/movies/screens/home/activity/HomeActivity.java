@@ -17,7 +17,7 @@ import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Movie_Table;
 import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;
-import com.mobileallin.movies.screens.detail.MovieActivity;
+import com.mobileallin.movies.screens.detail.activity.MovieActivity;
 import com.mobileallin.movies.screens.home.AdapterMovies;
 import com.mobileallin.movies.screens.home.MovieClickModule;
 import com.mobileallin.movies.utils.SortingCriteria;

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mobileallin.movies.R;
 import com.mobileallin.movies.models.Video;
-import com.mobileallin.movies.screens.detail.MovieActivity;
+import com.mobileallin.movies.screens.detail.activity.MovieActivity;
 import com.mobileallin.movies.screens.home.AdapterMovies;
 
 import java.util.ArrayList;
