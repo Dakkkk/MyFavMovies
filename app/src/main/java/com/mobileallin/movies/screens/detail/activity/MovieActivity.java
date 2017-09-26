@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -41,6 +43,8 @@ import static com.mobileallin.movies.R.id.movie_rating;
 import static com.mobileallin.movies.R.id.movie_synopsis;
 import static com.mobileallin.movies.R.id.movie_title_detail;
 import static com.mobileallin.movies.R.id.release_data;
+import static com.mobileallin.movies.R.id.show_reviews_btn;
+import static com.mobileallin.movies.R.id.show_videos_btn;
 
 /**
  * Created by Dawid on 2017-08-31.
@@ -119,6 +123,24 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
         TextView movieRating = detailView.findViewById(movie_rating);
         movieRating.setText(String.valueOf(movie.getUserRating()));
+
+        Button showReviewsBtn = detailView.findViewById(show_reviews_btn);
+        Button showVideosBtn = detailView.findViewById(show_videos_btn);
+
+        reviewsListView.setVisibility(View.GONE);
+        videosListView.setVisibility(View.GONE);
+
+        showReviewsBtn.setOnClickListener(view -> {
+            if (reviewsListView.getVisibility() == View.GONE) {
+                reviewsListView.setVisibility(View.VISIBLE);
+            } else reviewsListView.setVisibility(View.GONE);
+        });
+
+        showVideosBtn.setOnClickListener(view -> {
+            if (videosListView.getVisibility() == View.GONE) {
+                videosListView.setVisibility(View.VISIBLE);
+            } else videosListView.setVisibility(View.GONE);
+        });
 
         RecyclerView.LayoutManager managerRev = new LinearLayoutManager(this);
         reviewsListView.setLayoutManager(managerRev);

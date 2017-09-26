@@ -9,4 +9,12 @@
     <item name="android:windowBackground">@color/windowBackground</item>
   </style>
 
+
+  <style name="DivisionView">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <!--<item name="android:background">?android:attr/listDivider</item>-->
+    <item name="android:background">@android:color/darker_gray</item>
+  </style>
+
 </resources>

@@ -79,19 +79,16 @@ public class AdapterDetailReviews extends RecyclerView.Adapter<AdapterDetailRevi
 
         private TextView mReviewAuthorTextView;
         private TextView mReviewContentTextView;
-        private TextView mReviewUrlTextView;
 
         DetailViewHolder(View itemView) {
             super(itemView);
             mReviewAuthorTextView = itemView.findViewById(R.id.detail_review_author);
             mReviewContentTextView = itemView.findViewById(R.id.detail_review_content);
-            mReviewUrlTextView = itemView.findViewById(R.id.detail_review_url);
         }
 
         void setReview(Review review) {
             mReviewAuthorTextView.setText(review.getAuthor());
             mReviewContentTextView.setText(review.getContent());
-            mReviewAuthorTextView.setText(review.getUrl());
             Log.i("img", review.getAuthor());
         }
     }

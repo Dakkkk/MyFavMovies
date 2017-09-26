@@ -21,5 +21,7 @@
   <string name="movie_release_data">Movie release date</string>
   <string name="movie_reviews">Movie reviews</string>
     <string name="movie_long_title">A very long title just for testing A very long title just for testing</string>
+    <string name="show_reviews">Reviews</string>
+    <string name="show_videos">Videos</string>
 
 </resources>

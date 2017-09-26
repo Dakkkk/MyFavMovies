@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/detail_review_item_view"
     android:layout_width="match_parent"
@@ -11,44 +11,48 @@
     app:cardCornerRadius="4dp"
     app:elevation="4dp">
 
-    <TextView
-        android:id="@+id/detail_review_author"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:alpha=".8"
-        android:gravity="center"
-        android:minHeight="@dimen/main_title_text"
-        android:text="@string/app_name"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/main_title_text"
-        android:textStyle="bold" />
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/person_thumbnail"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_person_black_24dp" />
+
+        <TextView
+            android:id="@+id/detail_review_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@+id/person_thumbnail"
+            android:alpha=".8"
+            android:gravity="center"
+            android:minHeight="@dimen/main_title_text"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/main_title_text"
+            android:textStyle="bold" />
 
 
-    <TextView
-        android:id="@+id/detail_review_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:alpha=".8"
-        android:gravity="center"
-        android:minHeight="@dimen/main_title_text"
-        android:text="@string/app_name"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/main_title_text"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/detail_review_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@+id/detail_review_author"
+            android:alpha=".8"
+            android:gravity="center"
+            android:minHeight="@dimen/main_title_text"
+            android:text="@string/app_name"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/main_title_text"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/detail_review_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:alpha=".8"
-        android:gravity="center"
-        android:minHeight="@dimen/main_title_text"
-        android:text="@string/app_name"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/main_title_text"
-        android:textStyle="bold" />
+    </RelativeLayout>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>

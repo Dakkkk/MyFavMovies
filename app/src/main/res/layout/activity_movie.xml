@@ -37,11 +37,11 @@
         <TextView
             android:id="@+id/movie_title_detail"
             android:layout_width="wrap_content"
-            android:maxWidth="120dp"
             android:layout_height="wrap_content"
-            android:maxLines="5"
-            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:maxLines="5"
+            android:maxWidth="120dp"
             android:paddingTop="@dimen/large_detail_padding"
             android:textAllCaps="true"
             android:textColor="@android:color/black"
@@ -55,10 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:text="@string/movie_rating"
             android:textColor="@color/white"
             android:textSize="@dimen/detail_label_text"
             android:visibility="visible"
-            android:text="@string/movie_rating"
             app:layout_constraintLeft_toRightOf="@+id/movie_poster_detail"
             app:layout_constraintTop_toBottomOf="@+id/movie_title_detail" />
 
@@ -67,11 +67,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:textSize="@dimen/detail_large_text"
             app:layout_constraintLeft_toRightOf="@+id/movie_poster_detail"
             app:layout_constraintTop_toTopOf="@+id/movie_rating_label"
-            tools:text="@string/movie_rating"
-            android:layout_marginTop="16dp" />
+            tools:text="@string/movie_rating" />
 
         <TextView
             android:id="@+id/release_date_label"
@@ -79,10 +79,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:text="@string/release_date"
             android:textColor="@color/white"
             android:textSize="@dimen/detail_label_text"
             android:visibility="visible"
-            android:text="@string/release_date"
             app:layout_constraintLeft_toRightOf="@+id/movie_poster_detail"
             app:layout_constraintTop_toBottomOf="@+id/movie_rating" />
 
@@ -111,19 +111,29 @@
             app:layout_constraintTop_toBottomOf="@+id/movie_poster_detail"
             tools:text="@string/movie_title" />
 
-
-        <TextView
+<!--        <TextView
             android:id="@+id/reviews_label_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/reviews_label"
-            android:textSize="@dimen/detail_title_text"
             android:textColor="@color/white"
+            android:textSize="@dimen/detail_title_text"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_synopsis" />-->
+
+        <Button
+            android:id="@+id/show_reviews_btn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"
+            android:layout_margin="16dp"
+            android:text="@string/show_reviews"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_synopsis" />
-
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/detail_reviews_grid"
@@ -131,8 +141,27 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviews_label_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/show_reviews_btn" />
 
+        <View
+            android:id="@+id/division_view"
+            style="@style/DivisionView"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/detail_reviews_grid"/>
+
+        <Button
+            android:id="@+id/show_videos_btn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            android:text="@string/show_videos"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_reviews_grid" />
+<!--
         <TextView
             android:id="@+id/videos_label_detail"
             android:layout_width="wrap_content"
@@ -142,7 +171,7 @@
             android:textColor="@color/white"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_reviews_grid" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_reviews_grid" />-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/detail_videos_grid"
@@ -150,7 +179,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/videos_label_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/show_videos_btn" />
 
 
     </android.support.constraint.ConstraintLayout>
