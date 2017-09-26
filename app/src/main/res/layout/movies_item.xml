@@ -6,36 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="4dp"
-    app:elevation="4dp">
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    app:elevation="8dp">
 
-    <ImageView
-        android:id="@+id/movie_picture"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/movie_picture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher" />
+
         <TextView
             android:id="@+id/movie_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_gravity="center"
+            android:background="@color/colorAccent"
             android:layout_weight="3"
             android:alpha=".8"
             android:gravity="center"
+            android:layout_alignBottom="@id/movie_picture"
             android:minHeight="@dimen/main_title_text"
             android:text="@string/app_name"
             android:textColor="@android:color/black"
             android:textSize="@dimen/main_title_text"
+            android:textAllCaps="true"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
