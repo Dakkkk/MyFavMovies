@@ -13,4 +13,6 @@
     <dimen name="detail_large_text">18sp</dimen>
     <dimen name="detail_largest_text">24sp</dimen>
     <dimen name="detail_label_text">14dp</dimen>
+    <dimen name="standard_button_size">56dp</dimen>
+    <dimen name="small_button_size">48dp</dimen>
 </resources>

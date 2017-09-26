@@ -21,7 +21,8 @@
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher" />
+            tools:src="@mipmap/ic_launcher"
+            android:layout_marginLeft="16dp" />
 
         <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/favourite_button"
@@ -109,28 +110,20 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_poster_detail"
-            tools:text="@string/movie_title" />
-
-<!--        <TextView
-            android:id="@+id/reviews_label_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/reviews_label"
-            android:textColor="@color/white"
-            android:textSize="@dimen/detail_title_text"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/movie_synopsis" />-->
+            tools:text="@string/movie_title"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginRight="8dp" />
 
         <Button
             android:id="@+id/show_reviews_btn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/colorAccent"
-            android:textColor="@color/white"
             android:layout_margin="16dp"
+            android:background="@color/colorAccent"
             android:text="@string/show_reviews"
+            android:textColor="@color/white"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_synopsis" />
@@ -147,31 +140,20 @@
             android:id="@+id/division_view"
             style="@style/DivisionView"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/detail_reviews_grid"/>
+            app:layout_constraintTop_toBottomOf="@id/detail_reviews_grid" />
 
         <Button
             android:id="@+id/show_videos_btn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/colorAccent"
-            android:textColor="@color/white"
             android:layout_margin="16dp"
+            android:background="@color/colorAccent"
             android:padding="16dp"
             android:text="@string/show_videos"
+            android:textColor="@color/white"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_reviews_grid" />
-<!--
-        <TextView
-            android:id="@+id/videos_label_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/videos_label"
-            android:textColor="@color/white"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_reviews_grid" />-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/detail_videos_grid"
