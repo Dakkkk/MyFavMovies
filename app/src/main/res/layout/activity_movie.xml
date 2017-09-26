@@ -16,13 +16,13 @@
             android:id="@+id/movie_poster_detail"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/movie_image_description"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher"
-            android:layout_marginLeft="16dp" />
+            tools:src="@mipmap/ic_launcher" />
 
         <com.github.ivbaranov.mfb.MaterialFavoriteButton
             android:id="@+id/favourite_button"
@@ -102,19 +102,19 @@
             android:id="@+id/movie_synopsis"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="0dp"
             android:gravity="center"
             android:padding="@dimen/small_margin"
             android:textColor="@android:color/black"
             android:textSize="@dimen/detail_title_text"
             android:textStyle="italic"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_poster_detail"
-            tools:text="@string/movie_title"
-            android:layout_marginTop="0dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginRight="8dp" />
+            tools:text="@string/movie_title" />
 
         <Button
             android:id="@+id/show_reviews_btn"
@@ -135,12 +135,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/show_reviews_btn" />
-
-        <View
-            android:id="@+id/division_view"
-            style="@style/DivisionView"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/detail_reviews_grid" />
 
         <Button
             android:id="@+id/show_videos_btn"
