@@ -150,6 +150,7 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         }*/
 
         MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
+        favoriteButton.setColor(R.color.white);
         favoriteButton.setFavorite(movie.isFavourite());
 
         Log.i("isFavourite", String.valueOf(movie.isFavourite()));
