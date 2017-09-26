@@ -9,4 +9,5 @@
     <dimen name="main_title_text">16sp</dimen>
     <dimen name="error_text">20sp</dimen>
     <dimen name="detail_l_text">16sp</dimen>
+    <dimen name="large_detail_padding">24dp</dimen>
 </resources>

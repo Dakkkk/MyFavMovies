@@ -14,5 +14,10 @@
   <string name="sort_by_favourite">Sort by favourite</string>
   <string name="app_hash_tag">#MyFavMovies</string>
     <string name="action_favorite">Favourite</string>
+    <string name="movie_image_description">Movie Image</string>
+    <string name="reviews_label">Videos</string>
+    <string name="movie_rating">Movie rating</string>
+  <string name="movie_release_data">Movie release date</string>
+  <string name="movie_reviews">Movie reviews</string>
 
 </resources>

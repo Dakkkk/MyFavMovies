@@ -25,6 +25,12 @@ import retrofit2.Response;
 //ToDo rewrite the functions in order to get more DRY code
 public class MovieDbController {
 
+ /*   Retrofit enque:
+    enqueue(Callback<T> callback)
+    Asynchronously send the request and notify callback of its response or if an error
+    occurred talking to the server, creating the request, or processing the response.*/
+
+    /*    Detail class*/
     public void makeApiCall(MovieService movieService, AdapterDetailReviews adapterReviews,
                             AdapterDetailVideos adapterVideos, Context context, Movie movie,
                             DetailCallCriteria criteria) {
@@ -65,6 +71,7 @@ public class MovieDbController {
         }
     }
 
+    /*  HomeActivity class*/
     public void getSortedMovies(Call<APIResults<Movie>> reposCall, MovieService movieService,
                                 AdapterMovies adapterMovies, Context context, SortingCriteria sortingCriteria) {
         reposCall = movieService.getMostPopular();
