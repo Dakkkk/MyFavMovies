@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -84,29 +83,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                 adapterMovies, this, homeView, SortingCriteria.MOST_POPULAR);
     }
 
-/*    public void getSortedMovies(SortingCriteria sortingCriteria) {
-        reposCall = movieService.getMostPopular();
-        if (sortingCriteria == SortingCriteria.MOST_POPULAR) {
-            reposCall = movieService.getMostPopular();
-        } else if (sortingCriteria == SortingCriteria.TOP_RATED) {
-            reposCall = movieService.getTopRated();
-        }
-        reposCall.enqueue(new Callback<APIResults<Movie>>() {
-            @Override
-            public void onResponse(Call<APIResults<Movie>> call, Response<APIResults<Movie>> response) {
-                Log.i("API response", response.body().results.get(2).getFullPosterURL());
-                adapterMovies.swapData(response.body().results);
-            }
-
-            @Override
-            public void onFailure(Call<APIResults<Movie>> call, Throwable t) {
-                Log.e("API failure", t.getMessage());
-                Toast.makeText(HomeActivity.this, "Error getting movies " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -135,15 +111,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         homeView.findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
     }
 
-    private void hideLoadingIndicator() {
-        homeView.findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
-    }
-
-    /**
-     * Sort movies by given criteria
-     */
-
-
     /**
      * Sort movies by given criteria
      */
@@ -161,12 +128,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
                     .queryListResultCallback((__, movies) -> setMovies(movies))
                     .execute();
             return;
-/*
-            CursorLoader cursorLoader = new       CursorLoader(this, "ss", Movie_Table.favourite.is(true),null,null,null);
-*/
-
-
         }
+
         if (!NetworkUtility.isConnected(this)) {
             showErrorMessage(getResources().getString(R.string.no_connention));
             return;
@@ -183,19 +146,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-
-    //ToDo stream requres java 8!
     private void setMovies(List<Movie> movies) {
-        Log.d("setMovies", movies.toString());
         if (movies == null || movies.size() == 0) {
             Toast.makeText(this, "No favourite movies!", Toast.LENGTH_SHORT).show();
             return;
         }
-        Log.d("setMovies, fav", movies.get(0).toString());
         for (int i = 0; i < movies.size(); i++) {
             if (movies.get(i).exists()) movies.get(i).load();
         }
-        //movies.stream().filter(Movie::exists).forEach(Movie::load);
         adapterMovies.setMovies(movies);
     }
 

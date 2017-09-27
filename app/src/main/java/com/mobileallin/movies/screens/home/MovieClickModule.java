@@ -19,6 +19,5 @@ public class MovieClickModule {
     public AdapterMovies.MovieOnItemClick movieClick() {
         return movieClick;
     }
-
 }
 

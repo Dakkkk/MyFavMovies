@@ -1,9 +1,7 @@
 package com.mobileallin.movies.screens.home;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,13 +42,6 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesView
         void onClick(Movie movie);
     }
 
-
-    public AdapterMovies(Context context1, Picasso picasso, @NonNull Context context, MovieOnItemClick onClickHandler) {
-        this.mContext = context1;
-        this.picasso = picasso;
-        this.mOnMovieClick = onClickHandler;
-    }
-
     public void setMovies(List<Movie> movies) {
         this.moviesList = movies;
         notifyDataSetChanged();
@@ -87,8 +78,6 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesView
 
         private TextView mMovieTitleTextView;
         private ImageView mMoviePosterImageView;
-        private ImageView mFavoriteButtonImageView;
-
 
         MoviesViewHolder(View itemView) {
             super(itemView);
@@ -100,18 +89,14 @@ public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.MoviesView
 
         void setMovie(Movie movie) {
             mMovieTitleTextView.setText(movie.getOriginalTitle());
-            Log.i("img", movie.getFullPosterURL());
             Picasso.with(mContext).load(movie.getFullPosterURL()).into(mMoviePosterImageView);
-
         }
 
         @Override
         public void onClick(View v) {
             if (mOnMovieClick != null) {
                 mOnMovieClick.onClick(moviesList.get(getAdapterPosition()));
-                Log.d("cl1Movie", String.valueOf(moviesList.get(getAdapterPosition()).isFavourite()));
             }
         }
     }
-
 }

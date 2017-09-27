@@ -1,6 +1,5 @@
 package com.mobileallin.movies.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mobileallin.movies.database.MoviesDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
@@ -10,8 +9,6 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import org.parceler.Parcel;
-
-import java.util.List;
 
 
 @Table(database = MoviesDatabase.class)
@@ -87,44 +84,5 @@ public class Review extends BaseModel {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
-    }
-
-  /*  protected Review(Parcel in) {
-        this.id = in.readString();
-        this.author = in.readString();
-        this.content = in.readString();
-        this.url = in.readString();
-    }*/
-
-  /*  public static final Parcelable.Creator<Review> CREATOR = new Parcelable.Creator<Review>() {
-        public Review createFromParcel(Parcel source) {
-            return new Review(source);
-        }
-
-        public Review[] newArray(int size) {
-            return new Review[size];
-        }
-    };*/
-
-    public static final class Response {
-
-        @Expose
-        public long id;
-
-        @Expose
-        public int page;
-
-        @Expose
-        @SerializedName("results")
-        public List<Review> reviews;
-
-        @Expose
-        @SerializedName("total_pages")
-        public int totalPages;
-
-        @Expose
-        @SerializedName("total_results")
-        public int totalResults;
-
     }
 }

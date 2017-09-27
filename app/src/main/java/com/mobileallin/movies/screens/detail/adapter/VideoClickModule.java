@@ -14,10 +14,8 @@ public class VideoClickModule {
         this.videoClick = click;
     }
 
-
     @Provides
     public AdapterDetailVideos.VideoOnClickHandler videoClick() {
         return videoClick;
     }
-
 }

@@ -27,18 +27,6 @@ public class MoviesApplication extends Application {
 
     private MovieDbController movieDbController;
 
-    //   Activity
-
-    //GithubService   picasso
-
-    //retrofit    OkHttp3Downloader
-
-    //gson      okhttp
-
-    //      logger    cache
-
-    //      timber           file
-
     @Override
     public void onCreate() {
         super.onCreate();

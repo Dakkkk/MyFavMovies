@@ -1,9 +1,7 @@
 package com.mobileallin.movies.screens.detail.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +32,6 @@ public class AdapterDetailReviews extends RecyclerView.Adapter<AdapterDetailRevi
 
     @Inject
     public AdapterDetailReviews(MovieActivity context) {
-        this.mContext = context;
-    }
-
-
-    public AdapterDetailReviews(@NonNull Context context) {
         this.mContext = context;
     }
 
@@ -89,8 +82,6 @@ public class AdapterDetailReviews extends RecyclerView.Adapter<AdapterDetailRevi
         void setReview(Review review) {
             mReviewAuthorTextView.setText(review.getAuthor());
             mReviewContentTextView.setText(review.getContent());
-            Log.i("img", review.getAuthor());
         }
     }
-
 }

@@ -39,5 +39,4 @@ public class MoviesServiceModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
-
 }

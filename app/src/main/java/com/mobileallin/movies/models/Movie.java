@@ -70,12 +70,6 @@ public class Movie extends BaseModel {
     @Column(defaultValue = "0")
     private boolean favourite;
 
-/*
-    @Column
-    @SerializedName(FAVOURITE)
-    private boolean favourite;
-*/
-
     List<Video> videos;
 
     List<Review> reviews;
@@ -188,11 +182,6 @@ public class Movie extends BaseModel {
                     .queryList();
         }
         return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-        reviews.forEach(r -> r.setMovie(this));
     }
 
 }
