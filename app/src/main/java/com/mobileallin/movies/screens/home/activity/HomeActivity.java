@@ -19,6 +19,7 @@ import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Movie_Table;
 import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;
+import com.mobileallin.movies.network.NetworkUtility;
 import com.mobileallin.movies.screens.detail.activity.MovieActivity;
 import com.mobileallin.movies.screens.home.AdapterMovies;
 import com.mobileallin.movies.screens.home.MovieClickModule;
@@ -166,17 +167,20 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
 
         }
-/*
         if (!NetworkUtility.isConnected(this)) {
             showErrorMessage(getResources().getString(R.string.no_connention));
             return;
-        }*/
+        }
 
         currentCriteria = criteria;
 
         movieDbController.getSortedMovies(reposCall, movieService,
                 adapterMovies, this, homeView, currentCriteria);
 
+    }
+
+    private void showErrorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
 
