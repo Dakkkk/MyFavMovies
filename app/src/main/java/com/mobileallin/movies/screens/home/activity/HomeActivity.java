@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.mobileallin.movies.MoviesApplication;
@@ -39,6 +41,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     @BindView(R.id.all_movies_grid)
     RecyclerView listView;
 
+    @BindView(R.id.home_view)
+    ScrollView homeView;
+
     Call<APIResults<Movie>> reposCall;
 
     @Inject
@@ -68,12 +73,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
         component.injectHomeActivity(this);
 
+        showLoadingIndicator();
+
         RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
         listView.setLayoutManager(manager);
         listView.setAdapter(adapterMovies);
 
         movieDbController.getSortedMovies(reposCall, movieService,
-                adapterMovies, this, SortingCriteria.MOST_POPULAR);
+                adapterMovies, this, homeView, SortingCriteria.MOST_POPULAR);
     }
 
 /*    public void getSortedMovies(SortingCriteria sortingCriteria) {
@@ -123,6 +130,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         }
     }
 
+    private void showLoadingIndicator() {
+        homeView.findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoadingIndicator() {
+        homeView.findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
+    }
+
     /**
      * Sort movies by given criteria
      */
@@ -160,7 +175,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         currentCriteria = criteria;
 
         movieDbController.getSortedMovies(reposCall, movieService,
-                adapterMovies, this, currentCriteria);
+                adapterMovies, this, homeView, currentCriteria);
 
     }
 

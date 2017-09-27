@@ -139,6 +139,7 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         showVideosBtn.setOnClickListener(view -> {
             if (videosListView.getVisibility() == View.GONE) {
                 videosListView.setVisibility(View.VISIBLE);
+                videosListView.smoothScrollToPosition(videosListView.getAdapter().getItemCount() - 1);
             } else videosListView.setVisibility(View.GONE);
         });
 

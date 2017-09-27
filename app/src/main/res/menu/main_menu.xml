@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:myapp="http://schemas.android.com/apk/res-auto"
     android:icon="@android:drawable/ic_menu_more"
     myapp:showAsAction="ifRoom">
@@ -13,5 +14,7 @@
 
     <item
         android:id="@+id/sort_favourite"
-        android:title="@string/sort_by_favourite" />
+        android:icon="@drawable/ic_star_white_24dp"
+        android:title="@string/action_favorite"
+        app:showAsAction="ifRoom" />
 </menu>

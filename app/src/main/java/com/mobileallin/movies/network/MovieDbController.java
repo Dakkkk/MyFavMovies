@@ -2,8 +2,11 @@ package com.mobileallin.movies.network;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.mobileallin.movies.R;
 import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
 import com.mobileallin.movies.models.Review;
@@ -73,7 +76,11 @@ public class MovieDbController {
 
     /*  HomeActivity class*/
     public void getSortedMovies(Call<APIResults<Movie>> reposCall, MovieService movieService,
-                                AdapterMovies adapterMovies, Context context, SortingCriteria sortingCriteria) {
+                                AdapterMovies adapterMovies, Context context, ScrollView homeView,
+                                SortingCriteria sortingCriteria) {
+        /*Show progress bar*/
+        showLoadingIndicator(homeView);
+
         reposCall = movieService.getMostPopular();
         if (sortingCriteria == SortingCriteria.MOST_POPULAR) {
             reposCall = movieService.getMostPopular();
@@ -83,7 +90,9 @@ public class MovieDbController {
         reposCall.enqueue(new Callback<APIResults<Movie>>() {
             @Override
             public void onResponse(Call<APIResults<Movie>> call, Response<APIResults<Movie>> response) {
-                Log.i("API response", response.body().results.get(2).getFullPosterURL());
+                if (response.body().results != null && response.body().results.size() > 0) {
+                    hideLoadingIndicator(homeView);
+                }
                 adapterMovies.swapData(response.body().results);
             }
 
@@ -93,5 +102,13 @@ public class MovieDbController {
                 Toast.makeText(context, "Error getting movies " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showLoadingIndicator(ScrollView homeView) {
+        homeView.findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoadingIndicator(ScrollView homeView) {
+        homeView.findViewById(R.id.progress_bar).setVisibility(View.INVISIBLE);
     }
 }

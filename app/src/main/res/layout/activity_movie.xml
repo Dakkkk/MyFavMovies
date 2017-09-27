@@ -28,11 +28,10 @@
             android:id="@+id/favourite_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/movie_poster_detail"
             app:layout_constraintRight_toRightOf="@+id/movie_poster_detail"
             app:mfb_color="black"
-            app:mfb_size="64"
+            app:mfb_size="56"
             app:mfb_type="star" />
 
         <TextView
@@ -141,8 +140,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_margin="16dp"
+            android:layout_marginBottom="24dp"
             android:background="@color/colorAccent"
-            android:padding="16dp"
             android:text="@string/show_videos"
             android:textColor="@color/white"
             app:layout_constraintLeft_toRightOf="parent"
