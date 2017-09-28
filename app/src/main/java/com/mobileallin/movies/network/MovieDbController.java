@@ -37,9 +37,10 @@ public class MovieDbController {
             call.enqueue(new Callback<APIResults<Review>>() {
                 @Override
                 public void onResponse(Call<APIResults<Review>> call, Response<APIResults<Review>> response) {
-/*
-                    if (response.body() == null) return;
-*/
+                    if (response.body() == null) {
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     adapterReviews.swapData(response.body().results);
                 }
 

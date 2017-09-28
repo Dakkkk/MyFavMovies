@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,9 +45,8 @@ import static com.mobileallin.movies.R.id.show_reviews_btn;
 import static com.mobileallin.movies.R.id.show_videos_btn;
 
 /**
- * Created by Dawid on 2017-08-31.
+ * Detail activity
  */
-
 
 public class MovieActivity extends AppCompatActivity implements AdapterDetailVideos.VideoOnClickHandler {
 
@@ -121,22 +121,10 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
         Button showReviewsBtn = detailView.findViewById(show_reviews_btn);
         Button showVideosBtn = detailView.findViewById(show_videos_btn);
+        MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
 
         reviewsListView.setVisibility(View.GONE);
         videosListView.setVisibility(View.GONE);
-
-        showReviewsBtn.setOnClickListener(view -> {
-            if (reviewsListView.getVisibility() == View.GONE) {
-                reviewsListView.setVisibility(View.VISIBLE);
-            } else reviewsListView.setVisibility(View.GONE);
-        });
-
-        showVideosBtn.setOnClickListener(view -> {
-            if (videosListView.getVisibility() == View.GONE) {
-                videosListView.setVisibility(View.VISIBLE);
-                videosListView.smoothScrollToPosition(videosListView.getAdapter().getItemCount() - 1);
-            } else videosListView.setVisibility(View.GONE);
-        });
 
         RecyclerView.LayoutManager managerRev = new LinearLayoutManager(this);
         reviewsListView.setLayoutManager(managerRev);
@@ -157,24 +145,24 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
 
         }
 
+        showReviewsBtn.setOnClickListener(view -> {
+            if (reviewsListView.getVisibility() == View.GONE) {
+                reviewsListView.setVisibility(View.VISIBLE);
+            } else reviewsListView.setVisibility(View.GONE);
+        });
 
-        MaterialFavoriteButton favoriteButton = findViewById(R.id.favourite_button);
+        showVideosBtn.setOnClickListener(view -> {
+            if (videosListView.getVisibility() == View.GONE) {
+                videosListView.setVisibility(View.VISIBLE);
+                videosListView.smoothScrollToPosition(videosListView.getAdapter().getItemCount() - 1);
+            } else videosListView.setVisibility(View.GONE);
+        });
+
         favoriteButton.setColor(R.color.white);
         favoriteButton.setFavorite(movie.isFavourite());
 
         favoriteButton.setOnFavoriteChangeListener(
-                (buttonView, favorite) -> {
-                    if (movie == null) return;
-                    movie.setFavourite(favorite);
-                    try {
-                        if (movie.exists()) {
-                            movie.update();
-                        } else {
-                            movie.save();
-                        }
-                    } catch (Exception ignore) {
-                    }
-                });
+                (buttonView, favorite) -> saveFavouriteState(movie));
     }
 
 
@@ -183,6 +171,29 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
         super.onSaveInstanceState(outState);
         if (movie != null) {
             outState.putParcelable(MOVIE_KEY, Parcels.wrap(movie));
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.movie_menu, menu);//Menu Resource, Menu
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                MovieActivity.this.saveFavouriteState(movie);
+                if (movie.isFavourite()) {
+                    Toast.makeText(this, "Added to favourites", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Removed from favourites", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -197,6 +208,19 @@ public class MovieActivity extends AppCompatActivity implements AdapterDetailVid
             } else {
                 Toast.makeText(this, "Don't know how to open video on site " + video.getSite(), Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private void saveFavouriteState(Movie movie) {
+        if (movie == null) return;
+        movie.setFavourite(!movie.isFavourite());
+        try {
+            if (movie.exists()) {
+                movie.update();
+            } else {
+                movie.save();
+            }
+        } catch (Exception ignore) {
         }
     }
 

@@ -1,10 +1,6 @@
 package com.mobileallin.movies.utils;
 
 /**
- * Created by Dawid on 2017-09-14.
- */
-
-/**
  * Sorting options.
  */
 

@@ -38,9 +38,6 @@ public class Movie extends BaseModel {
     private static final String PLOT_SYNOPSIS_KEY = "overview";
     private static final String USER_RATING_KEY = "vote_average";
     private static final String RELEASE_DATE_KEY = "release_date";
-/*
-    private static final String FAVOURITE = "favourite";
-*/
 
     @PrimaryKey
     @Column
@@ -152,12 +149,6 @@ public class Movie extends BaseModel {
 
     public void setFavourite(boolean favourite) {
         this.favourite = favourite;
-    }
-
-
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
-        videos.forEach(v -> v.setMovie(this));
     }
 
 

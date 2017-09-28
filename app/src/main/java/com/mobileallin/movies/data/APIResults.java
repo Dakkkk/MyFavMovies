@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Class used for formating the response returned from the API.
+ * Class used for formatting the response returned from the API.
  */
 
 public class APIResults<T> {

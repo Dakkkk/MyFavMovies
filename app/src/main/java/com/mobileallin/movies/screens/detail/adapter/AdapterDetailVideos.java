@@ -25,7 +25,6 @@ public class AdapterDetailVideos extends RecyclerView.Adapter<AdapterDetailVideo
 
     private Context mContext;
     private List<Video> videosList = new ArrayList<>(0);
-
     private VideoOnClickHandler mClickHandler;
 
     public interface VideoOnClickHandler {

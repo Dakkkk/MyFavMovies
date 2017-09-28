@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.mobileallin.movies.R;
 import com.mobileallin.movies.models.Review;
 import com.mobileallin.movies.screens.detail.activity.MovieActivity;
-import com.mobileallin.movies.screens.home.AdapterMovies;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,9 +25,6 @@ public class AdapterDetailReviews extends RecyclerView.Adapter<AdapterDetailRevi
 
     private Context mContext;
     private List<Review> reviewsList = new ArrayList<>(0);
-
-
-    public AdapterMovies.MovieOnItemClick mOnMovieClick;
 
     @Inject
     public AdapterDetailReviews(MovieActivity context) {
