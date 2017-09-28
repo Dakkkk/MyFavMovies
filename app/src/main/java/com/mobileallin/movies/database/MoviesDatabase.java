@@ -42,20 +42,5 @@ public class MoviesDatabase {
         @ContentUri(path = MovieProviderModel.ENDPOINT,
                 type = ContentUri.ContentType.VND_MULTIPLE + ENDPOINT)
         public static final Uri CONTENT_URI = buildUri(ENDPOINT);
-
-     /* @ContentUri(
-              path = ENDPOINT,
-              type = ContentUri.ContentType.VND_MULTIPLE
-      )
-      public static final Uri MOVIE_URI = buildUri(ENDPOINT);
-
-      @ContentUri(
-              path = ENDPOINT + "/#",
-              type = ContentUri.ContentType.VND_SINGLE,
-              segments = {@ContentUri.PathSegment(segment = 1, column = "id")}
-      )
-      static Uri withID(int id) {
-          return buildUri(ENDPOINT, Integer.toString(id));
-      }*/
     }
 }
