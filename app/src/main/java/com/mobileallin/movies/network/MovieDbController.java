@@ -72,10 +72,10 @@ public class MovieDbController {
 
     /*  HomeActivity class*/
     public void getSortedMovies(Call<APIResults<Movie>> reposCall, MovieService movieService,
-                                AdapterMovies adapterMovies, Context context, ScrollView homeView,
+                                AdapterMovies adapterMovies, Context context, View homeView,
                                 SortingCriteria sortingCriteria) {
         /*Show progress bar*/
-        showLoadingIndicator(homeView);
+        showLoadingIndicator((ScrollView) homeView);
 
         reposCall = movieService.getMostPopular();
         if (sortingCriteria == SortingCriteria.MOST_POPULAR) {
@@ -87,7 +87,7 @@ public class MovieDbController {
             @Override
             public void onResponse(Call<APIResults<Movie>> call, Response<APIResults<Movie>> response) {
                 if (response.body().results != null && response.body().results.size() > 0) {
-                    hideLoadingIndicator(homeView);
+                    hideLoadingIndicator((ScrollView) homeView);
                 }
                 adapterMovies.swapData(response.body().results);
             }

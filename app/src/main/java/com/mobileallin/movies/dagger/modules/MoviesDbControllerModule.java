@@ -1,5 +1,6 @@
-package com.mobileallin.movies;
+package com.mobileallin.movies.dagger.modules;
 
+import com.mobileallin.movies.dagger.MoviesApplicationScope;
 import com.mobileallin.movies.network.MovieDbController;
 
 import dagger.Module;

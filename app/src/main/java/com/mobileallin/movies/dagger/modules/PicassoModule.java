@@ -1,8 +1,10 @@
-package com.mobileallin.movies;
+package com.mobileallin.movies.dagger.modules;
 
 import android.content.Context;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
+import com.mobileallin.movies.ApplicationContext;
+import com.mobileallin.movies.dagger.MoviesApplicationScope;
 import com.squareup.picasso.Picasso;
 
 import dagger.Module;

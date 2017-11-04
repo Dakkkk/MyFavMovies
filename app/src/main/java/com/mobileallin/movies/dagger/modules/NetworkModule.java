@@ -1,6 +1,10 @@
-package com.mobileallin.movies;
+package com.mobileallin.movies.dagger.modules;
 
 import android.content.Context;
+
+import com.mobileallin.movies.ApplicationContext;
+import com.mobileallin.movies.BuildConfig;
+import com.mobileallin.movies.dagger.MoviesApplicationScope;
 
 import java.io.File;
 

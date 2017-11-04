@@ -3,6 +3,10 @@ package com.mobileallin.movies;
 import android.app.Activity;
 import android.app.Application;
 
+import com.mobileallin.movies.dagger.modules.ContextModule;
+import com.mobileallin.movies.dagger.DaggerMoviesApplicationComponent;
+import com.mobileallin.movies.dagger.MoviesApplicationComponent;
+import com.mobileallin.movies.dagger.modules.MoviesDbControllerModule;
 import com.mobileallin.movies.database.MoviesDatabase;
 import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;

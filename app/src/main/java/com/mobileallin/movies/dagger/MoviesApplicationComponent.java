@@ -1,5 +1,9 @@
-package com.mobileallin.movies;
+package com.mobileallin.movies.dagger;
 
+import com.mobileallin.movies.dagger.modules.ActivityModule;
+import com.mobileallin.movies.dagger.modules.MoviesDbControllerModule;
+import com.mobileallin.movies.dagger.modules.MoviesServiceModule;
+import com.mobileallin.movies.dagger.modules.PicassoModule;
 import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;
 import com.squareup.picasso.Picasso;

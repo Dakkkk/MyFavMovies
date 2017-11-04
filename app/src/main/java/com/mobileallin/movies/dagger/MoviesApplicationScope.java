@@ -1,4 +1,4 @@
-package com.mobileallin.movies;
+package com.mobileallin.movies.dagger;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

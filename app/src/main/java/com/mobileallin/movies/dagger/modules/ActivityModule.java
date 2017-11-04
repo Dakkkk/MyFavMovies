@@ -1,7 +1,9 @@
-package com.mobileallin.movies;
+package com.mobileallin.movies.dagger.modules;
 
 import android.app.Activity;
 import android.content.Context;
+
+import com.mobileallin.movies.dagger.MoviesApplicationScope;
 
 import javax.inject.Named;
 

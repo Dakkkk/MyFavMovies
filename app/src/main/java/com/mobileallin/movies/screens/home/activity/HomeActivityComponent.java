@@ -1,6 +1,6 @@
 package com.mobileallin.movies.screens.home.activity;
 
-import com.mobileallin.movies.MoviesApplicationComponent;
+import com.mobileallin.movies.dagger.MoviesApplicationComponent;
 
 import dagger.Component;
 

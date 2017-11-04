@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 
 
-public class HomeActivity extends AppCompatActivity implements AdapterMovies.MovieOnItemClick {
+public class HomeActivity extends AppCompatActivity implements AdapterMovies.MovieOnItemClick, HomeActivityView {
 
     @BindView(R.id.all_movies_grid)
     RecyclerView listView;
@@ -56,6 +56,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     MovieDbController movieDbController;
 
     private SortingCriteria currentCriteria;
+
+    private HomeActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +80,17 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         RecyclerView.LayoutManager manager = new GridLayoutManager(this, 2);
         listView.setLayoutManager(manager);
         listView.setAdapter(adapterMovies);
-
+/*
         movieDbController.getSortedMovies(reposCall, movieService,
+                adapterMovies, this, homeView, SortingCriteria.MOST_POPULAR);*/
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        presenter = new HomeActivityPresenter(this);
+        presenter.loadMovies(movieDbController, reposCall, movieService,
                 adapterMovies, this, homeView, SortingCriteria.MOST_POPULAR);
     }
 
@@ -171,5 +182,20 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         Intent intent = new Intent(this, MovieActivity.class);
         intent.putExtra(MovieActivity.MOVIE_KEY, Parcels.wrap(movie));
         startActivity(intent);
+    }
+
+    @Override
+    public void displayMovies() {
+
+    }
+
+    @Override
+    public void displayNoMovies() {
+
+    }
+
+    @Override
+    public void displayError() {
+
     }
 }

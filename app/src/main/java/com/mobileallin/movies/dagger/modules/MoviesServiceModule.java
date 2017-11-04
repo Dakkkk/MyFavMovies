@@ -1,7 +1,8 @@
-package com.mobileallin.movies;
+package com.mobileallin.movies.dagger.modules;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mobileallin.movies.dagger.MoviesApplicationScope;
 import com.mobileallin.movies.network.DateTimeConverter;
 import com.mobileallin.movies.network.MovieService;
 
