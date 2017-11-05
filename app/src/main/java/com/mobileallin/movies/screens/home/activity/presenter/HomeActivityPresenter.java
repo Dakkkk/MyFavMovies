@@ -35,6 +35,7 @@ public class HomeActivityPresenter {
     }
 
     public SortingCriteria selectSortedMovies(SortingCriteria currentCriteria, SortingCriteria criteria) {
+
         if (currentCriteria == criteria) {
             return currentCriteria;
         }
@@ -48,8 +49,6 @@ public class HomeActivityPresenter {
                     .queryListResultCallback((__, movies) -> view.displayMovies(movies))
                     .execute();
         }
-
         return currentCriteria;
-
     }
 }

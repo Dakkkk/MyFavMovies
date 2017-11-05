@@ -140,9 +140,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
 
         currentCriteria = criteria;
 
-        movieDbController.getSortedMovies(reposCall, movieService,
+        presenter.loadMovies(movieDbController, reposCall, movieService,
                 adapterMovies, this, homeView, currentCriteria);
-
     }
 
     private void showErrorMessage(String message) {
