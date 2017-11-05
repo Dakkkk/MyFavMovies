@@ -15,15 +15,15 @@ import com.mobileallin.movies.MoviesApplication;
 import com.mobileallin.movies.R;
 import com.mobileallin.movies.data.APIResults;
 import com.mobileallin.movies.models.Movie;
-import com.mobileallin.movies.models.Movie_Table;
 import com.mobileallin.movies.network.MovieDbController;
 import com.mobileallin.movies.network.MovieService;
 import com.mobileallin.movies.network.NetworkUtility;
 import com.mobileallin.movies.screens.detail.activity.MovieActivity;
 import com.mobileallin.movies.screens.home.AdapterMovies;
 import com.mobileallin.movies.screens.home.MovieClickModule;
+import com.mobileallin.movies.screens.home.activity.presenter.HomeActivityPresenter;
+import com.mobileallin.movies.screens.home.activity.view.HomeActivityView;
 import com.mobileallin.movies.utils.SortingCriteria;
-import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import org.parceler.Parcels;
 
@@ -126,18 +126,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
      * Sort movies by given criteria
      */
     private void showSortedData(SortingCriteria criteria) {
-        if (currentCriteria == criteria) {
-            return;
-        }
 
-        if (criteria == SortingCriteria.FAVORITE) {
-            currentCriteria = criteria;
-            SQLite.select()
-                    .from(Movie.class)
-                    .where(Movie_Table.favourite.is(true))
-                    .async()
-                    .queryListResultCallback((__, movies) -> setMovies(movies))
-                    .execute();
+       currentCriteria = presenter.selectSortedMovies(currentCriteria, criteria);
+
+        if (currentCriteria == criteria) {
             return;
         }
 
@@ -157,18 +149,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    private void setMovies(List<Movie> movies) {
-        if (movies == null || movies.size() == 0) {
-            Toast.makeText(this, "No favourite movies!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).exists()) movies.get(i).load();
-        }
-        adapterMovies.setMovies(movies);
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -184,9 +164,17 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         startActivity(intent);
     }
 
-    @Override
-    public void displayMovies() {
 
+    @Override
+    public void displayMovies(List<Movie> movies) {
+        if (movies == null || movies.size() == 0) {
+            Toast.makeText(this, "No favourite movies!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        for (int i = 0; i < movies.size(); i++) {
+            if (movies.get(i).exists()) movies.get(i).load();
+        }
+        adapterMovies.setMovies(movies);
     }
 
     @Override
@@ -195,7 +183,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     }
 
     @Override
-    public void displayError() {
-
+    public void displayErrorMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
