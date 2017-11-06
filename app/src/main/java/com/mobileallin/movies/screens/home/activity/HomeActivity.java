@@ -88,7 +88,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     @Override
     protected void onStart() {
         super.onStart();
-
         presenter = new HomeActivityPresenter(this);
         presenter.loadMovies(movieDbController, reposCall, movieService,
                 adapterMovies, this, homeView, SortingCriteria.MOST_POPULAR);
@@ -122,30 +121,16 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
         homeView.findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
     }
 
-    /**
-     * Sort movies by given criteria
-     */
     private void showSortedData(SortingCriteria criteria) {
-
-       currentCriteria = presenter.selectSortedMovies(currentCriteria, criteria);
+        currentCriteria = presenter.selectSortedMovies(currentCriteria, criteria);
 
         if (currentCriteria == criteria) {
             return;
         }
-
-        if (!NetworkUtility.isConnected(this)) {
-            showErrorMessage(getResources().getString(R.string.no_connention));
-            return;
-        }
-
         currentCriteria = criteria;
 
         presenter.loadMovies(movieDbController, reposCall, movieService,
                 adapterMovies, this, homeView, currentCriteria);
-    }
-
-    private void showErrorMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -184,6 +169,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterMovies.Mov
     @Override
     public void displayErrorMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void handleNoInternetConnection() {
+        if (!NetworkUtility.isConnected(this)) {
+            displayErrorMessage(getResources().getString(R.string.no_connention));
+            return;
+        }
     }
 
 

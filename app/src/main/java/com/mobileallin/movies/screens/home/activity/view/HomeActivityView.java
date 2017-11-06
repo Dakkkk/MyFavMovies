@@ -15,4 +15,6 @@ public interface HomeActivityView {
     void displayNoMovies();
 
     void displayErrorMessage(String message);
+
+    void handleNoInternetConnection();
 }

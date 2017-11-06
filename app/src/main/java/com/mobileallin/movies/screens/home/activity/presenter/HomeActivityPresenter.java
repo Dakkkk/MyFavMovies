@@ -36,6 +36,8 @@ public class HomeActivityPresenter {
 
     public SortingCriteria selectSortedMovies(SortingCriteria currentCriteria, SortingCriteria criteria) {
 
+        view.handleNoInternetConnection();
+
         if (currentCriteria == criteria) {
             return currentCriteria;
         }
